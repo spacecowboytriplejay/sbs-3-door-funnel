@@ -1,26 +1,33 @@
+<!--
+Design reminder: Dark Editorial Institutionalism. The document shell supports a restrained, high-authority dark funnel with exact typography, dark-mode metadata, and placeholder conversion tracking without adding decorative chrome.
+-->
 <!doctype html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>SBS 3-Door Funnel</title>    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#07070a" />
+    <meta name="description" content="Choose the SBS path that matches where you are now: self-build assets, done-for-you Frontier OS, or the Inner Circle." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Selfbuiltsystems — Three Doors Into The Frontier" />
+    <meta property="og:description" content="A dark editorial frontier systems funnel for operators choosing between self-build, done-for-you deployment, and Inner Circle access." />
+    <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663150514473/fSXWzfJRKK5zBdpq8WL4xd/sbs-dark-frontier-portal-3wbox52kx6gLLzAfZZHYZ9.webp" />
+    <title>Selfbuiltsystems — Three Doors Into The Frontier</title>
+    <script>
+      window.SBS_META_PIXEL_ID = "META_PIXEL_ID";
+      if (window.SBS_META_PIXEL_ID && window.SBS_META_PIXEL_ID !== "META_PIXEL_ID") {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', window.SBS_META_PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+    </script>
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+    <script defer src="%VITE_ANALYTICS_ENDPOINT%/umami" data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
-
 </html>
