@@ -1,5 +1,5 @@
 /*
-Design reminder: Dark Editorial Institutionalism. The application shell must keep the route structure quiet and direct: portal, Door I, Door II, Door III, with no dashboard or generic app chrome.
+Design reminder: Dark Editorial Institutionalism. Routes: portal (/), Door I (/sbs-io), Door II (/sbs-ai), Door III The Frontier Syndicate (/frontier-co). No Silla references anywhere. No dashboard chrome.
 */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +15,9 @@ function Router() {
       <Route path="/sbs-io">{() => <Home page="self" />}</Route>
       <Route path="/sbs-ai">{() => <Home page="dfy" />}</Route>
       <Route path="/frontier-co">{() => <Home page="community" />}</Route>
+      <Route path="/checkout/vault">{() => <Home page="checkout-vault" />}</Route>
+      <Route path="/checkout/playbook">{() => <Home page="checkout-playbook" />}</Route>
+      <Route path="/checkout/templates">{() => <Home page="checkout-templates" />}</Route>
       <Route>{() => <Home page="not-found" />}</Route>
     </Switch>
   );
