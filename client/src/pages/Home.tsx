@@ -195,8 +195,12 @@ function Header() {
 
   return (
     <header className={`site-nav ${scrolled ? "site-nav--compact" : ""}`}>
-      <Link href="/" className="wordmark" onClick={() => track("PageView", { route: "portal" })}>
-        SELFBUILTSYSTEMS
+      <Link href="/" className="wordmark wordmark--logo" onClick={() => track("PageView", { route: "portal" })}>
+        <img
+          src="/manus-storage/sbs-logo_b1796eeb.webp"
+          alt="Selfbuiltsystems"
+          className="nav-logo"
+        />
       </Link>
       <nav aria-label="Primary navigation" className="nav-links">
         <a href="#manifesto">Manifesto</a>

@@ -208,6 +208,27 @@ Design reminder: Dark Editorial Institutionalism. Global styling enforces warmed
   font-size: 18px;
   letter-spacing: 0.1em;
   color: #f5f5f0;
+  display: flex;
+  align-items: center;
+}
+
+.wordmark--logo {
+  font-size: 0;
+  line-height: 0;
+}
+
+.nav-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  /* Logo is white on transparent — invert not needed on dark bg */
+  filter: brightness(1);
+  transition: opacity 220ms ease;
+}
+
+.wordmark--logo:hover .nav-logo {
+  opacity: 0.8;
 }
 
 .nav-links {
