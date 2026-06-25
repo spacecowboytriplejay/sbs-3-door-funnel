@@ -2254,3 +2254,325 @@ h2 em {
   text-transform: uppercase;
   color: oklch(45% 0 0);
 }
+
+/* ═══════════════════════════════════════════════
+   HERO SOLO MODIFIER (no VSL column)
+═══════════════════════════════════════════════ */
+
+.hero--solo {
+  display: block;
+  max-width: min(760px, calc(100% - 32px));
+  padding-top: clamp(80px, 12vw, 160px);
+  padding-bottom: clamp(52px, 8vw, 100px);
+}
+
+.hero--solo .hero-copy {
+  max-width: 100%;
+}
+
+.hero--solo h1 {
+  max-width: 100%;
+}
+
+/* ═══════════════════════════════════════════════
+   DOOR II BOTTOM CTA BLOCK
+═══════════════════════════════════════════════ */
+
+.door2-cta-block {
+  width: min(1180px, calc(100% - 32px));
+  margin: clamp(54px, 8vw, 92px) auto clamp(32px, 5vw, 64px);
+  padding: clamp(40px, 6vw, 72px);
+  border: 0.5px solid #1d1d22;
+  background: linear-gradient(180deg, #101015, #0c0c11);
+  text-align: center;
+}
+
+.door2-cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.door2-cta-prose {
+  color: #8a8a92;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.door2-cta-btn {
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  padding: 0 32px;
+  min-height: 48px;
+}
+
+.door2-cta-note {
+  color: #4a4a52;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   BOOK-A-CALL: QUALIFY PAGE
+═══════════════════════════════════════════════ */
+
+.qualify-main {
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(60px, 10vw, 120px) 16px clamp(60px, 8vw, 100px);
+}
+
+.qualify-container {
+  width: min(620px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.qualify-progress-bar {
+  height: 1px;
+  background: #1d1d22;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.qualify-progress-fill {
+  height: 100%;
+  background: #c9c9b8;
+  transition: width 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.qualify-step-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #6b6b75;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.qualify-question {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #f5f5f0;
+  margin: 0;
+}
+
+.qualify-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qualify-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 18px 22px;
+  border: 0.5px solid #1d1d22;
+  background: rgba(12, 12, 17, 0.82);
+  color: #8a8a92;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: border-color 200ms ease, background 200ms ease, color 200ms ease, transform 160ms ease;
+}
+
+.qualify-option:hover {
+  border-color: #2a2a32;
+  background: #101015;
+  color: #f5f5f0;
+  transform: translateX(4px);
+}
+
+.qualify-option--selected {
+  border-color: #c9c9b8;
+  background: rgba(201, 201, 184, 0.06);
+  color: #f5f5f0;
+}
+
+.qualify-option:active {
+  transform: scale(0.98);
+}
+
+/* ═══════════════════════════════════════════════
+   BOOK-A-CALL: NOT A FIT PAGE
+═══════════════════════════════════════════════ */
+
+.not-a-fit-main {
+  min-height: 80vh;
+  padding: clamp(80px, 12vw, 140px) 16px clamp(60px, 8vw, 100px);
+}
+
+.not-a-fit-container {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.not-a-fit-prose {
+  color: #8a8a92;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 620px;
+  margin: 0;
+}
+
+.not-a-fit-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.not-a-fit-action-card {
+  padding: clamp(24px, 4vw, 36px);
+  border: 0.5px solid #1d1d22;
+  background: rgba(12, 12, 17, 0.82);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.not-a-fit-action-card h3 {
+  font-size: 22px;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.not-a-fit-action-card p {
+  color: #8a8a92;
+  font-size: 13px;
+  line-height: 1.72;
+  margin: 0;
+  flex: 1;
+}
+
+.not-a-fit-action-card .primary-action {
+  margin-top: 8px;
+  align-self: flex-start;
+  justify-self: start;
+}
+
+@media (max-width: 700px) {
+  .not-a-fit-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   BOOK-A-CALL: QUALIFIED PAGE
+═══════════════════════════════════════════════ */
+
+.qualified-main {
+  padding: clamp(80px, 12vw, 140px) 16px clamp(60px, 8vw, 100px);
+}
+
+.qualified-header {
+  width: min(720px, 100%);
+  margin: 0 auto 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.qualified-prose {
+  color: #8a8a92;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.qualified-calendly-wrap {
+  width: min(900px, 100%);
+  margin: 0 auto 64px;
+  border: 0.5px solid #1d1d22;
+  background: #07070a;
+  overflow: hidden;
+}
+
+.qualified-trust {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ═══════════════════════════════════════════════
+   BOOK-A-CALL: BOOKING CONFIRMATION PAGE
+═══════════════════════════════════════════════ */
+
+.confirmation-main {
+  min-height: 80vh;
+  padding: clamp(80px, 12vw, 140px) 16px clamp(60px, 8vw, 100px);
+}
+
+.confirmation-container {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.confirmation-prose {
+  color: #8a8a92;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.confirmation-steps {
+  margin-top: 8px;
+}
+
+.confirmation-video-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  color: #c9c9b8;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 0.5px solid #2a2a32;
+  padding-bottom: 2px;
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.confirmation-video-link:hover {
+  color: #f5f5f0;
+  border-color: #c9c9b8;
+}
+
+.confirmation-footer-note {
+  padding-top: 24px;
+  border-top: 0.5px solid #1d1d22;
+  color: #4a4a52;
+  font-size: 12px;
+}
+
+.confirmation-footer-note a {
+  color: #8a8a92;
+  transition: color 200ms ease;
+}
+
+.confirmation-footer-note a:hover {
+  color: #f5f5f0;
+}

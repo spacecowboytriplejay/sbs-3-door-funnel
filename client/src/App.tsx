@@ -18,6 +18,10 @@ function Router() {
       <Route path="/checkout/vault">{() => <Home page="checkout-vault" />}</Route>
       <Route path="/checkout/playbook">{() => <Home page="checkout-playbook" />}</Route>
       <Route path="/checkout/templates">{() => <Home page="checkout-templates" />}</Route>
+      <Route path="/qualify">{() => <Home page="qualify" />}</Route>
+      <Route path="/not-a-fit">{() => <Home page="not-a-fit" />}</Route>
+      <Route path="/qualified">{() => <Home page="qualified" />}</Route>
+      <Route path="/booking-confirmation">{() => <Home page="booking-confirmation" />}</Route>
       <Route>{() => <Home page="not-found" />}</Route>
     </Switch>
   );

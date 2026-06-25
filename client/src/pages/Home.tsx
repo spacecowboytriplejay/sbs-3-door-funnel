@@ -423,7 +423,7 @@ const caseStudies = [
     company: "V8-Media",
     companyUrl: "#",
     before:
-      "Sales process was a bit leaky. Growth had hit a ceiling. The balance between South African and international clients needed to shift. Problems had been sitting in the process for months.",
+      "Sales process was leaky. Growth had hit a ceiling. The balance between domestic and international clients needed to shift. Problems had been sitting in the process for months.",
     after:
       "Sales process rebuilt. Strategy reoriented toward international client acquisition. Sales team trained and closed alongside. AI-native workflows deployed. Record month in sales in under 30 days.",
     roi: "Record month in sales in under 30 days",
@@ -726,7 +726,7 @@ function SelfBuildPage() {
     <div className="page-shell">
       <Header />
       <main>
-        <section className="hero hero--narrow">
+        <section className="hero hero--narrow hero--solo">
           <div className="hero-copy reveal">
             <Eyebrow>DOOR I · SELFBUILTSYSTEMS.IO</Eyebrow>
             <h1>
@@ -1107,13 +1107,13 @@ function DoneForYouPage() {
               them together. We work with the firms in the logo marquee below. Access is by
               application. Not every team qualifies.
             </p>
-            <a
+            <Link
               className="primary-action"
-              href="#qualification-form"
-              onClick={() => track("Lead", { content_name: "Frontier OS application" })}
+              href="/qualify"
+              onClick={() => track("Lead", { content_name: "Frontier OS CTA clicked" })}
             >
-              Apply for Frontier OS
-            </a>
+              Book a Strategy Call
+            </Link>
           </div>
           <VslBlock caption="Frontier OS Brief" duration="08:00 to 15:00" longForm />
         </section>
@@ -1227,22 +1227,22 @@ function DoneForYouPage() {
 
         <ProofStrip label="TRUSTED BY" />
 
-        {/* INLINE QUALIFICATION FORM
-            TODO: Wire form submission to a backend endpoint, Typeform, or Airtable.
-            Currently renders as a static form with inline thank-you state.
-        */}
-        <section className="qual-form-section" id="qualification-form" aria-label="Apply for Frontier OS">
-          <div className="qual-form-header">
-            <Eyebrow>QUALIFICATION</Eyebrow>
-            <h2>Apply for Frontier OS.</h2>
-            <p className="qual-form-intro">
-              The application asks who you are, what you are building, and what layer of the stack
-              you need to move first. We review every application personally. Not every team
-              qualifies. The ones that do are the ones already operating at the edge of their
-              current system and ready to install the next one.
+        <section className="door2-cta-block" id="book-a-call" aria-label="Book a strategy call">
+          <div className="door2-cta-inner">
+            <Eyebrow>NEXT STEP</Eyebrow>
+            <h2>Ready to install the system?</h2>
+            <p className="door2-cta-prose">
+              The next step is a 30-minute strategy call with the Selfbuiltsystems team. We will assess your current operating model, identify the highest-leverage deployment point, and determine whether Frontier OS is the right move for your business right now. Not every team qualifies. The ones that do move fast.
             </p>
+            <Link
+              className="primary-action door2-cta-btn"
+              href="/qualify"
+              onClick={() => track("Lead", { content_name: "Frontier OS bottom CTA" })}
+            >
+              Book a Strategy Call
+            </Link>
+            <p className="door2-cta-note">Takes 2 minutes. You will be asked 5 qualifying questions before booking.</p>
           </div>
-          <QualificationForm />
         </section>
       </main>
       <Footer
@@ -1462,7 +1462,7 @@ function SyndicatePage() {
       <main>
 
         {/* SECTION 1: HERO */}
-        <section className="hero hero--syndicate hero--stacked">
+        <section className="hero hero--syndicate hero--solo">
           <div className="hero-copy reveal">
             <Eyebrow>DOOR III · THE FRONTIER SYNDICATE</Eyebrow>
             <h1>
@@ -1493,7 +1493,7 @@ function SyndicatePage() {
               </a>
             </div>
           </div>
-          <VslBlock caption="Syndicate Brief" duration="02:00 to 04:00" />
+
         </section>
 
         {/* SECTION 2: THESIS */}
@@ -1824,12 +1824,340 @@ function CheckoutPage({ productKey }: { productKey: string }) {
 }
 
 /* ─────────────────────────────────────────────
+   BOOK-A-CALL FUNNEL: QUALIFY PAGE
+───────────────────────────────────────────── */
+function QualifyPage() {
+  usePageMeta(
+    "Selfbuiltsystems | Quick Qualification",
+    "Answer 5 quick questions to see if a Frontier OS strategy call is the right next step for your business.",
+  );
+
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<Record<number, string>>({});
+
+  const questions = [
+    {
+      id: 0,
+      label: "What best describes your current situation?",
+      options: [
+        { value: "founder-scaling", label: "Founder scaling a business past $500K revenue" },
+        { value: "smb-operator", label: "SMB operator with a team and real operational complexity" },
+        { value: "enterprise", label: "Enterprise or institutional decision-maker" },
+        { value: "early-stage", label: "Early-stage, pre-revenue, or exploring" },
+      ],
+    },
+    {
+      id: 1,
+      label: "What is your biggest operational bottleneck right now?",
+      options: [
+        { value: "acquisition", label: "Client acquisition and lead generation" },
+        { value: "fulfillment", label: "Delivery, fulfilment, or operational capacity" },
+        { value: "reporting", label: "Reporting, data, and decision loops" },
+        { value: "all-of-above", label: "All of the above. The whole system needs upgrading." },
+      ],
+    },
+    {
+      id: 2,
+      label: "Have you worked with AI consultants or marketing agencies before?",
+      options: [
+        { value: "yes-bad", label: "Yes. It did not work. We got tools, not systems." },
+        { value: "yes-ok", label: "Yes. Some results, but nothing compounding." },
+        { value: "no-first", label: "No. This would be our first serious AI infrastructure investment." },
+        { value: "internal", label: "We have tried to build it internally. We need outside expertise." },
+      ],
+    },
+    {
+      id: 3,
+      label: "What is your deployment budget for an AI operating system?",
+      options: [
+        { value: "under-3k", label: "Under $3,000" },
+        { value: "3k-10k", label: "$3,000 to $10,000" },
+        { value: "10k-50k", label: "$10,000 to $50,000" },
+        { value: "50k-plus", label: "$50,000 and above" },
+      ],
+    },
+    {
+      id: 4,
+      label: "How urgently do you need this solved?",
+      options: [
+        { value: "now", label: "Immediately. This is costing us money every week we wait." },
+        { value: "30-days", label: "Within the next 30 days." },
+        { value: "90-days", label: "Within the next 90 days." },
+        { value: "exploring", label: "Still exploring. No firm timeline yet." },
+      ],
+    },
+  ];
+
+  function isDisqualified(ans: Record<number, string>): boolean {
+    // Disqualify: early-stage OR budget under $3K
+    if (ans[0] === "early-stage") return true;
+    if (ans[3] === "under-3k") return true;
+    return false;
+  }
+
+  function handleSelect(questionId: number, value: string) {
+    const newAnswers = { ...answers, [questionId]: value };
+    setAnswers(newAnswers);
+    if (step < questions.length - 1) {
+      setTimeout(() => setStep(step + 1), 280);
+    } else {
+      // All answered — route
+      track("Lead", { content_name: "Qualify form completed" });
+      const disqualified = isDisqualified(newAnswers);
+      if (disqualified) {
+        window.location.href = "/not-a-fit";
+      } else {
+        window.location.href = "/qualified";
+      }
+    }
+  }
+
+  const current = questions[step];
+  const progress = Math.round(((step) / questions.length) * 100);
+
+  return (
+    <div className="page-shell">
+      <Header />
+      <main className="qualify-main">
+        <div className="qualify-container">
+          <div className="qualify-progress-bar">
+            <div className="qualify-progress-fill" style={{ width: `${progress}%` }} />
+          </div>
+          <p className="qualify-step-label">
+            Question {step + 1} of {questions.length}
+          </p>
+          <h2 className="qualify-question">{current.label}</h2>
+          <div className="qualify-options">
+            {current.options.map((opt) => (
+              <button
+                key={opt.value}
+                className={`qualify-option ${answers[current.id] === opt.value ? "qualify-option--selected" : ""}`}
+                onClick={() => handleSelect(current.id, opt.value)}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   BOOK-A-CALL FUNNEL: NOT A FIT PAGE
+───────────────────────────────────────────── */
+function NotAFitPage() {
+  usePageMeta(
+    "Selfbuiltsystems | Not the Right Fit Yet",
+    "Based on your answers, Frontier OS is not the right next step right now. Here is what we recommend instead.",
+  );
+
+  return (
+    <div className="page-shell">
+      <Header />
+      <main className="not-a-fit-main">
+        <div className="not-a-fit-container">
+          <Eyebrow>HONEST ASSESSMENT</Eyebrow>
+          <h1>Not the right fit <em>right now.</em></h1>
+          <p className="not-a-fit-prose">
+            Based on your answers, Frontier OS is not the right next step for where you are today. That is not a problem. It means you are earlier in the cycle. The best operators we have worked with started exactly where you are.
+          </p>
+          <p className="not-a-fit-prose">
+            When you are ready to invest $5,000 or more in a real operating system and you have a business generating revenue that needs to compound, come back. The door will still be here.
+          </p>
+          <div className="not-a-fit-actions">
+            <div className="not-a-fit-action-card">
+              <Eyebrow>STEP 1</Eyebrow>
+              <h3>Join the Frontier Syndicate</h3>
+              <p>The free signal tier gives you weekly frontier intelligence, operator frameworks, and the thinking that informs everything Selfbuiltsystems builds. Stay close to the room while you build toward it.</p>
+              <a
+                className="primary-action"
+                href="https://t.me/frontiersignal"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("Subscribe", { plan: "signal_free_disqualified" })}
+              >
+                Join the Free Signal
+              </a>
+            </div>
+            <div className="not-a-fit-action-card">
+              <Eyebrow>STEP 2</Eyebrow>
+              <h3>Start with Door I</h3>
+              <p>The Master Prompt Vault and the 30-Day Self-Build Playbook are the operating language of the room, compressed into assets you can deploy today. The $17 vault is the first key.</p>
+              <Link
+                className="primary-action"
+                href="/sbs-io"
+                onClick={() => track("PageView", { page: "door1_from_disqualified" })}
+              >
+                Explore Door I
+              </Link>
+            </div>
+            <div className="not-a-fit-action-card">
+              <Eyebrow>STEP 3</Eyebrow>
+              <h3>Watch the Frontier OS Brief</h3>
+              <p>The full Frontier OS brief walks through the intelligence layer, the deployment architecture, and what it looks like to install a real operating system. Watch it when you are ready to move.</p>
+              <Link
+                className="primary-action"
+                href="/sbs-ai"
+                onClick={() => track("PageView", { page: "door2_from_disqualified" })}
+              >
+                Watch the Brief
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   BOOK-A-CALL FUNNEL: QUALIFIED PAGE + CALENDLY
+───────────────────────────────────────────── */
+function QualifiedPage() {
+  usePageMeta(
+    "Selfbuiltsystems | You Qualify. Book Your Call.",
+    "You are a fit for Frontier OS. Book your 30-minute strategy call with the Selfbuiltsystems team now.",
+  );
+
+  // TODO: Replace this URL with your real Calendly booking link
+  const CALENDLY_URL = "https://calendly.com/selfbuiltsystems/frontier-os-strategy-call";
+
+  useEffect(() => {
+    track("Lead", { content_name: "Qualified page reached" });
+    // Load Calendly widget script
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <div className="page-shell">
+      <Header />
+      <main className="qualified-main">
+        <div className="qualified-header">
+          <Eyebrow>YOU QUALIFY</Eyebrow>
+          <h1>Book your <em>strategy call.</em></h1>
+          <p className="qualified-prose">
+            Based on your answers, you are a strong fit for Frontier OS. The next step is a 30-minute strategy call with the Selfbuiltsystems team. We will map your current operating model, identify the highest-leverage deployment point, and give you a clear picture of what the first 60 days looks like. No pitch. No pressure. Just clarity.
+          </p>
+        </div>
+        <div className="qualified-calendly-wrap">
+          <div
+            className="calendly-inline-widget"
+            data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=07070a&text_color=f5f5f0&primary_color=c9c9b8`}
+            style={{ minWidth: "320px", height: "700px" }}
+          />
+        </div>
+        <div className="qualified-trust">
+          <Eyebrow>WHAT HAPPENS AFTER YOU BOOK</Eyebrow>
+          <ol className="checkout-steps">
+            <li>
+              <span className="checkout-step-num">01</span>
+              <div>
+                <strong>You will receive a confirmation email.</strong>
+                <p>Check your inbox (and spam) for the calendar invite with the Zoom link. The call is 30 minutes. Come prepared.</p>
+              </div>
+            </li>
+            <li>
+              <span className="checkout-step-num">02</span>
+              <div>
+                <strong>Watch the Frontier OS Brief before the call.</strong>
+                <p>The brief is 8 to 15 minutes. It walks through the full architecture. Operators who watch it first get significantly more out of the call.</p>
+              </div>
+            </li>
+            <li>
+              <span className="checkout-step-num">03</span>
+              <div>
+                <strong>Come with one clear answer.</strong>
+                <p>What is the single biggest operational bottleneck costing you the most right now? The call is most valuable when you know the answer to that question before we start.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   BOOK-A-CALL FUNNEL: BOOKING CONFIRMATION PAGE
+───────────────────────────────────────────── */
+function BookingConfirmationPage() {
+  usePageMeta(
+    "Selfbuiltsystems | Call Confirmed",
+    "Your strategy call is booked. Here is how to prepare.",
+  );
+
+  useEffect(() => {
+    track("Schedule", { content_name: "Strategy call booked" });
+  }, []);
+
+  return (
+    <div className="page-shell">
+      <Header />
+      <main className="confirmation-main">
+        <div className="confirmation-container">
+          <Eyebrow>CALL CONFIRMED</Eyebrow>
+          <h1>Your call is booked. <em>Here is how to prepare.</em></h1>
+          <p className="confirmation-prose">
+            Check your inbox for the calendar invite with the Zoom link. The call is 30 minutes. The three steps below will make it significantly more valuable.
+          </p>
+          <ol className="checkout-steps confirmation-steps">
+            <li>
+              <span className="checkout-step-num">01</span>
+              <div>
+                <strong>Watch the Frontier OS Brief.</strong>
+                <p>The brief walks through the full intelligence-to-atoms architecture, the deployment model, and the results we have achieved with operators across the stack. Operators who watch it first arrive with better questions and close faster.</p>
+                <Link
+                  className="confirmation-video-link"
+                  href="/sbs-ai"
+                  onClick={() => track("ViewContent", { content_name: "Frontier OS Brief pre-call" })}
+                >
+                  Watch the Frontier OS Brief
+                </Link>
+              </div>
+            </li>
+            <li>
+              <span className="checkout-step-num">02</span>
+              <div>
+                <strong>Join on Zoom or Google Meet. No phone calls.</strong>
+                <p>We only take calls on video. This is a working session, not a pitch. Please be in a quiet environment with your camera on. The Zoom link is in your calendar invite.</p>
+              </div>
+            </li>
+            <li>
+              <span className="checkout-step-num">03</span>
+              <div>
+                <strong>Know your one bottleneck.</strong>
+                <p>Before the call, write down the single biggest operational problem costing you the most right now. Revenue, fulfilment, reporting, or acquisition. One sentence. That is where we will start.</p>
+              </div>
+            </li>
+          </ol>
+          <div className="confirmation-footer-note">
+            <p>Questions before the call? Email <a href="mailto:hello@selfbuiltsystems.com">hello@selfbuiltsystems.com</a></p>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    ROOT EXPORT
 ───────────────────────────────────────────── */
 export default function Home({
   page = "portal",
 }: {
-  page?: "portal" | "self" | "dfy" | "community" | "not-found" | "checkout-vault" | "checkout-playbook" | "checkout-templates";
+  page?: "portal" | "self" | "dfy" | "community" | "not-found" | "checkout-vault" | "checkout-playbook" | "checkout-templates" | "qualify" | "not-a-fit" | "qualified" | "booking-confirmation";
 }) {
   useEffect(() => {
     track("PageView", { page });
@@ -1851,6 +2179,14 @@ export default function Home({
         return <CheckoutPage productKey="playbook" />;
       case "checkout-templates":
         return <CheckoutPage productKey="templates" />;
+      case "qualify":
+        return <QualifyPage />;
+      case "not-a-fit":
+        return <NotAFitPage />;
+      case "qualified":
+        return <QualifiedPage />;
+      case "booking-confirmation":
+        return <BookingConfirmationPage />;
       case "portal":
       default:
         return <PortalPage />;
