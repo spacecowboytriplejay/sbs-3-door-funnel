@@ -2597,3 +2597,302 @@ h2 em {
 .confirmation-footer-note a:hover {
   color: #f5f5f0;
 }
+
+/* ═══════════════════════════════════════════════
+   INTERACTIVE DESIGN SYSTEM
+   Orbital atoms, tilt cards, magnetic CTAs,
+   scroll reveals, cursor glow
+═══════════════════════════════════════════════ */
+
+/* --- Stack section orbital atoms --- */
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 0.5px solid #1d1d22;
+  margin-top: clamp(32px, 5vw, 56px);
+}
+
+.stack-card {
+  padding: clamp(24px, 4vw, 38px);
+  border: 0.5px solid #1d1d22;
+  background: rgba(12, 12, 17, 0.82);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background 280ms ease, border-color 280ms ease;
+  cursor: default;
+}
+
+.stack-card:hover {
+  background: rgba(18, 18, 24, 0.95);
+  border-color: #2a2a32;
+}
+
+.stack-orbital {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.atom-svg {
+  width: 64px;
+  height: 64px;
+  overflow: visible;
+}
+
+/* Orbit ring spin animations */
+.orbit-1 {
+  transform-origin: 40px 40px;
+  animation: orbit-spin-1 6s linear infinite;
+}
+
+.orbit-2 {
+  transform-origin: 40px 40px;
+  animation: orbit-spin-2 9s linear infinite reverse;
+}
+
+.orbit-3 {
+  transform-origin: 40px 40px;
+  animation: orbit-spin-3 12s linear infinite;
+}
+
+/* Electron travel animations */
+.electron.e-1 {
+  transform-origin: 40px 40px;
+  animation: electron-orbit-1 6s linear infinite;
+}
+
+.electron.e-2 {
+  transform-origin: 40px 40px;
+  animation: electron-orbit-2 9s linear infinite reverse;
+}
+
+.electron.e-3 {
+  transform-origin: 40px 40px;
+  animation: electron-orbit-3 12s linear infinite;
+}
+
+.bit-cube {
+  animation: bit-pulse 4s ease-in-out infinite;
+}
+
+.bit-cube-back {
+  animation: bit-pulse 4s ease-in-out infinite 0.5s;
+}
+
+@keyframes orbit-spin-1 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-spin-2 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-spin-3 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes electron-orbit-1 {
+  from { transform: rotate(0deg) translateX(26px); }
+  to   { transform: rotate(360deg) translateX(26px); }
+}
+
+@keyframes electron-orbit-2 {
+  from { transform: rotate(0deg) translateX(18px); }
+  to   { transform: rotate(360deg) translateX(18px); }
+}
+
+@keyframes electron-orbit-3 {
+  from { transform: rotate(0deg) translateX(28px); }
+  to   { transform: rotate(360deg) translateX(28px); }
+}
+
+@keyframes bit-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 0.9; transform: scale(1.04); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-1, .orbit-2, .orbit-3,
+  .electron, .bit-cube, .bit-cube-back {
+    animation: none;
+  }
+}
+
+/* --- Door card tilt --- */
+
+.door-card {
+  /* Remove pointer-events from card itself since inner link handles it */
+  cursor: default;
+}
+
+.door-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 318px;
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Shimmer border on door card hover */
+.door-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(201, 201, 184, 0.06) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.door-card:hover::after {
+  opacity: 1;
+}
+
+/* --- Magnetic CTA shimmer --- */
+
+.primary-action,
+.nav-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-action::before,
+.nav-cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 201, 184, 0.12),
+    transparent
+  );
+  transition: left 500ms ease;
+  pointer-events: none;
+}
+
+.primary-action:hover::before,
+.nav-cta:hover::before {
+  left: 160%;
+}
+
+/* --- Cursor glow dot --- */
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 201, 184, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s linear;
+  mix-blend-mode: screen;
+}
+
+/* --- Founder authority photo hover --- */
+
+.founder-photo-card {
+  transition: transform 260ms ease;
+}
+
+.founder-photo-card:hover {
+  transform: translateY(-4px);
+}
+
+.founder-photo-card img {
+  transition: filter 300ms ease;
+}
+
+.founder-photo-card:hover img {
+  filter: brightness(1.08) contrast(1.02);
+}
+
+/* --- Case study card hover --- */
+
+.case-study-card {
+  transition: transform 240ms ease, border-color 240ms ease, background 240ms ease;
+}
+
+.case-study-card:hover {
+  transform: translateY(-3px);
+  border-color: #2a2a32;
+  background: #101015;
+}
+
+/* --- Review card hover --- */
+
+.review-card {
+  transition: transform 240ms ease, border-color 240ms ease;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+  border-color: #2a2a32;
+}
+
+/* --- Timeline grid animate-in --- */
+
+.timeline-grid article {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* --- Qualify option hover enhancement --- */
+
+.qualify-option {
+  position: relative;
+  overflow: hidden;
+}
+
+.qualify-option::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: #c9c9b8;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 200ms ease;
+}
+
+.qualify-option:hover::after,
+.qualify-option--selected::after {
+  transform: scaleY(1);
+}
+
+/* --- Stack section responsive --- */
+
+@media (max-width: 900px) {
+  .stack-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .stack-grid {
+    grid-template-columns: 1fr;
+  }
+}

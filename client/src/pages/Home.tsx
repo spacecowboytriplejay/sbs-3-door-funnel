@@ -7,15 +7,16 @@ Luxury reverse-psychology: application gates, no prices in heroes, scarcity sign
 "Apply" as primary CTA, no FAQ, no comparison tables, no testimonials section.
 Value ladder: beginner operator (Door I) -> serious builder (Door II) -> Syndicate room (Door III) -> Capital Desk whisper.
 */
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { Link, useLocation } from "wouter";
+import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 
-const portalVisual = "/assets/sbs-dark-frontier-portal.webp";
+const portalVisual = "/manus-storage/sbs-dark-frontier-portal_bbf85b1f.webp";
 
 const productAssets = {
-  vault: "/assets/master-prompt-vault-mockup-transparent_cba99e5c.png",
-  playbook: "/assets/self-build-playbook-mockup-transparent_9ad47f20.png",
-  stack: "/assets/operator-funnel-stack-mockup-transparent_500ae9b4.png",
+  vault: "/manus-storage/master-prompt-vault-mockup-transparent_cba99e5c_92de3c30.png",
+  playbook: "/manus-storage/self-build-playbook-mockup-transparent_9ad47f20_dba0f3b5.png",
+  stack: "/manus-storage/operator-funnel-stack-mockup-transparent_500ae9b4_deab528c.png",
 };
 
 const checkoutProducts: Record<
@@ -196,7 +197,7 @@ function Header() {
     <header className={`site-nav ${scrolled ? "site-nav--compact" : ""}`}>
       <Link href="/" className="wordmark wordmark--logo" onClick={() => track("PageView", { route: "portal" })}>
         <img
-          src="/assets/sbs-logo.webp"
+          src="/manus-storage/sbs-logo_ec99e024.webp"
           alt="Selfbuiltsystems"
           className="nav-logo"
         />
@@ -233,6 +234,165 @@ function Footer({ crossSell }: { crossSell?: React.ReactNode }) {
       </div>
     </footer>
   );
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATION UTILITIES
+───────────────────────────────────────────── */
+
+// Scroll-triggered fade-up reveal
+function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, y: 22 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.72, ease: [0.23, 1, 0.32, 1], delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// Magnetic CTA button
+function MagneticButton({ children, className = "", href, onClick }: { children: React.ReactNode; className?: string; href?: string; onClick?: () => void }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 200, damping: 20 });
+  const springY = useSpring(y, { stiffness: 200, damping: 20 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    x.set((e.clientX - cx) * 0.28);
+    y.set((e.clientY - cy) * 0.28);
+  }, [x, y]);
+
+  const handleMouseLeave = useCallback(() => {
+    x.set(0);
+    y.set(0);
+  }, [x, y]);
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      className={className}
+      style={{ x: springX, y: springY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      whileTap={{ scale: 0.97 }}
+    >
+      {children}
+    </motion.a>
+  );
+}
+
+// 3D tilt card
+function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0, gx: 50, gy: 50 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    setTilt({ rx: (y - 0.5) * -8, ry: (x - 0.5) * 8, gx: x * 100, gy: y * 100 });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setTilt({ rx: 0, ry: 0, gx: 50, gy: 50 });
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+        transition: "transform 0.18s ease",
+        background: `radial-gradient(circle at ${tilt.gx}% ${tilt.gy}%, rgba(201,201,184,0.04) 0%, transparent 60%)`,
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Spinning atom / orbital element for the stack section
+function AtomOrbital({ layer }: { layer: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    INTELLIGENCE: (
+      <svg viewBox="0 0 80 80" className="atom-svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="6" fill="#c9c9b8" opacity="0.9" />
+        <ellipse cx="40" cy="40" rx="28" ry="10" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.5" className="orbit orbit-1" />
+        <ellipse cx="40" cy="40" rx="28" ry="10" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.35" className="orbit orbit-2" />
+        <circle cx="68" cy="40" r="3" fill="#c9c9b8" opacity="0.8" className="electron e-1" />
+        <circle cx="12" cy="40" r="2" fill="#c9c9b8" opacity="0.6" className="electron e-2" />
+      </svg>
+    ),
+    BITS: (
+      <svg viewBox="0 0 80 80" className="atom-svg" aria-hidden="true">
+        <rect x="28" y="28" width="24" height="24" fill="none" stroke="#c9c9b8" strokeWidth="0.7" opacity="0.6" className="bit-cube" />
+        <rect x="34" y="22" width="24" height="24" fill="none" stroke="#c9c9b8" strokeWidth="0.4" opacity="0.3" className="bit-cube-back" />
+        <line x1="28" y1="28" x2="34" y2="22" stroke="#c9c9b8" strokeWidth="0.4" opacity="0.3" />
+        <line x1="52" y1="28" x2="58" y2="22" stroke="#c9c9b8" strokeWidth="0.4" opacity="0.3" />
+        <line x1="52" y1="52" x2="58" y2="46" stroke="#c9c9b8" strokeWidth="0.4" opacity="0.3" />
+        <circle cx="40" cy="40" r="3" fill="#c9c9b8" opacity="0.7" />
+      </svg>
+    ),
+    ELECTRONS: (
+      <svg viewBox="0 0 80 80" className="atom-svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="4" fill="#c9c9b8" opacity="0.9" />
+        <ellipse cx="40" cy="40" rx="26" ry="9" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.5" className="orbit orbit-1" />
+        <ellipse cx="40" cy="40" rx="26" ry="9" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.4" className="orbit orbit-2" style={{ transform: "rotate(60deg)", transformOrigin: "40px 40px" }} />
+        <ellipse cx="40" cy="40" rx="26" ry="9" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.3" className="orbit orbit-3" style={{ transform: "rotate(120deg)", transformOrigin: "40px 40px" }} />
+        <circle cx="66" cy="40" r="2.5" fill="#c9c9b8" opacity="0.9" className="electron e-1" />
+        <circle cx="27" cy="29" r="2" fill="#c9c9b8" opacity="0.7" className="electron e-2" />
+        <circle cx="27" cy="51" r="1.5" fill="#c9c9b8" opacity="0.5" className="electron e-3" />
+      </svg>
+    ),
+    ATOMS: (
+      <svg viewBox="0 0 80 80" className="atom-svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="7" fill="none" stroke="#c9c9b8" strokeWidth="0.8" opacity="0.7" />
+        <circle cx="40" cy="40" r="3" fill="#c9c9b8" opacity="0.9" />
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#c9c9b8" strokeWidth="0.4" opacity="0.3" strokeDasharray="2 4" className="orbit orbit-1" />
+        <circle cx="40" cy="40" r="28" fill="none" stroke="#c9c9b8" strokeWidth="0.3" opacity="0.2" strokeDasharray="1 6" className="orbit orbit-2" />
+        <circle cx="58" cy="40" r="2.5" fill="#c9c9b8" opacity="0.8" className="electron e-1" />
+        <circle cx="40" cy="12" r="2" fill="#c9c9b8" opacity="0.6" className="electron e-2" />
+      </svg>
+    ),
+    CAPITAL: (
+      <svg viewBox="0 0 80 80" className="atom-svg" aria-hidden="true">
+        <polygon points="40,14 52,34 72,34 56,48 62,68 40,56 18,68 24,48 8,34 28,34" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.5" className="orbit orbit-1" />
+        <circle cx="40" cy="40" r="4" fill="#c9c9b8" opacity="0.8" />
+        <circle cx="40" cy="14" r="2" fill="#c9c9b8" opacity="0.6" className="electron e-1" />
+      </svg>
+    ),
+    INSTITUTIONS: (
+      <svg viewBox="0 0 80 80" className="atom-svg" aria-hidden="true">
+        <rect x="20" y="38" width="40" height="22" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.5" />
+        <polygon points="40,16 62,38 18,38" fill="none" stroke="#c9c9b8" strokeWidth="0.6" opacity="0.5" />
+        <line x1="40" y1="38" x2="40" y2="60" stroke="#c9c9b8" strokeWidth="0.5" opacity="0.4" />
+        <line x1="28" y1="46" x2="28" y2="60" stroke="#c9c9b8" strokeWidth="0.5" opacity="0.3" />
+        <line x1="52" y1="46" x2="52" y2="60" stroke="#c9c9b8" strokeWidth="0.5" opacity="0.3" />
+        <circle cx="40" cy="28" r="2.5" fill="#c9c9b8" opacity="0.7" />
+      </svg>
+    ),
+  };
+  return icons[layer] ?? null;
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -274,27 +434,30 @@ function VslBlock({
 function DoorCards() {
   return (
     <section className="doors" id="doors" aria-label="Choose a door">
-      <p className="section-label">Choose a door</p>
+      <FadeUp><p className="section-label">Choose a door</p></FadeUp>
       <div className="door-grid">
-        {doors.map((door) => (
-          <Link
-            key={door.numeral}
-            href={door.path}
-            className={`door-card ${door.primary ? "door-card--primary" : ""}`}
-            onClick={() => {
-              track("door_chosen", { door_chosen: door.event });
-              if (door.primary) track("Lead", { content_name: "Door II intent" });
-            }}
-          >
-            <div className="door-kicker">
-              <span>DOOR {door.numeral}</span>
-              {door.primary ? <span className="primary-tag">primary</span> : null}
-            </div>
-            <p className="domain-label">{door.domain}</p>
-            <h3>{door.title}</h3>
-            <p>{door.qualifier}</p>
-            <span className="door-enter">Enter Door {door.numeral}</span>
-          </Link>
+        {doors.map((door, i) => (
+          <FadeUp key={door.numeral} delay={i * 0.1}>
+            <TiltCard className={`door-card ${door.primary ? "door-card--primary" : ""}`}>
+              <Link
+                href={door.path}
+                className="door-card-inner"
+                onClick={() => {
+                  track("door_chosen", { door_chosen: door.event });
+                  if (door.primary) track("Lead", { content_name: "Door II intent" });
+                }}
+              >
+                <div className="door-kicker">
+                  <span>DOOR {door.numeral}</span>
+                  {door.primary ? <span className="primary-tag">primary</span> : null}
+                </div>
+                <p className="domain-label">{door.domain}</p>
+                <h3>{door.title}</h3>
+                <p>{door.qualifier}</p>
+                <span className="door-enter">Enter Door {door.numeral}</span>
+              </Link>
+            </TiltCard>
+          </FadeUp>
         ))}
       </div>
     </section>
@@ -302,15 +465,15 @@ function DoorCards() {
 }
 
 const logoAssets = [
-  { src: "/assets/foton_15473a6b.svg",     alt: "Foton" },
-  { src: "/assets/wef_1976ab3d.svg",       alt: "World Economic Forum" },
-  { src: "/assets/worldbank_4b416240.svg", alt: "The World Bank" },
-  { src: "/assets/mufg_59398bb3.svg",      alt: "MUFG" },
-  { src: "/assets/un_4f379338.svg",        alt: "United Nations" },
-  { src: "/assets/byd_31bdfb65.svg",       alt: "BYD" },
-  { src: "/assets/huawei_aca3a3c3.svg",    alt: "Huawei" },
-  { src: "/assets/oreflo_681800c2.svg",    alt: "OreFlo.ai" },
-  { src: "/assets/dji_7d814277.svg",       alt: "DJI" },
+  { src: "/manus-storage/foton_15473a6b_57cf1735.svg",     alt: "Foton" },
+  { src: "/manus-storage/wef_1976ab3d_07843249.svg",       alt: "World Economic Forum" },
+  { src: "/manus-storage/worldbank_4b416240_fe69f497.svg", alt: "The World Bank" },
+  { src: "/manus-storage/mufg_59398bb3_d1ec556c.svg",      alt: "MUFG" },
+  { src: "/manus-storage/un_4f379338_2c285fdc.svg",        alt: "United Nations" },
+  { src: "/manus-storage/byd_31bdfb65_a31394ea.svg",       alt: "BYD" },
+  { src: "/manus-storage/huawei_aca3a3c3_4fe07fcf.svg",    alt: "Huawei" },
+  { src: "/manus-storage/oreflo_681800c2_68b07131.svg",    alt: "OreFlo.ai" },
+  { src: "/manus-storage/dji_7d814277_b71329aa.svg",       alt: "DJI" },
   // TODO: Insert Cherry logo here once user uploads the SVG asset
   // TODO: Insert Google logo here once user uploads the SVG asset
 ];
@@ -346,26 +509,33 @@ function ProofStrip({ label = "TRUSTED BY" }: { label?: string }) {
 function StackSection() {
   return (
     <section className="stack-section" id="stack" aria-label="Selfbuiltsystems full stack architecture">
-      <div className="section-heading section-heading--stack">
-        <div>
-          <Eyebrow>THE STACK</Eyebrow>
-          <h2>
-            Intelligence, bits, electrons, atoms, capital, and the institutions that hold them
-            together.
-          </h2>
+      <FadeUp>
+        <div className="section-heading section-heading--stack">
+          <div>
+            <Eyebrow>THE STACK</Eyebrow>
+            <h2>
+              Intelligence, bits, electrons, atoms, capital, and the institutions that hold them
+              together.
+            </h2>
+          </div>
+          <p>
+            We move across the layers because physically, economically, and politically, they are one
+            system. The race is not for applications sitting on someone else's infrastructure. The race
+            is for the infrastructure itself.
+          </p>
         </div>
-        <p>
-          We move across the layers because physically, economically, and politically, they are one
-          system. The race is not for applications sitting on someone else's infrastructure. The race
-          is for the infrastructure itself.
-        </p>
-      </div>
+      </FadeUp>
       <div className="stack-grid">
-        {stackLayers.map(([layer, description]) => (
-          <article key={layer}>
-            <span>{layer}</span>
-            <p>{description}</p>
-          </article>
+        {stackLayers.map(([layer, description], i) => (
+          <FadeUp key={layer} delay={i * 0.08}>
+            <article className="stack-card">
+              <div className="stack-orbital">
+                <AtomOrbital layer={layer} />
+              </div>
+              <span>{layer}</span>
+              <p>{description}</p>
+            </article>
+          </FadeUp>
         ))}
       </div>
     </section>
@@ -379,23 +549,23 @@ function StackSection() {
 // Founder authority photos — real CDN URLs wired in.
 const founderPhotos = [
   {
-    src: "/assets/jean-g20-solo_cc296301.webp",
+    src: "/manus-storage/jean-g20-solo_cc296301_d569c761.webp",
     caption: "G20 SOUTH AFRICA 2025 · TRADE FINANCE WORKING GROUP",
     context: "Jean-Jacques at the G20 South Africa 2025 Trade Finance Working Group. Invited alongside McKinsey, Bain, and World Economic Forum delegates. The infrastructure conversation happens at this level first.",
   },
   {
-    src: "/assets/jean-prince-eswatini_d1a16bcd.webp",
+    src: "/manus-storage/jean-prince-eswatini_d1a16bcd_f1b60dea.webp",
     caption: "C20 SOUTH AFRICA 2025 · WITH H.R.H. PRINCE MLUNGISI DLAMINI, ESWATINI",
     context: "Jean-Jacques with H.R.H. Prince Mlungisi Dlamini of Eswatini at the C20 South Africa 2025 summit. A business partner and sovereign infrastructure principal across the continent. Together they work on sovereign infrastructure deployments across Africa.",
   },
   {
-    src: "/assets/IMG_6858_d4d6cf62.webp",
+    src: "/manus-storage/IMG_6858_d4d6cf62_9b3c526c.webp",
     caption: "B20 · C20 WORKING GROUP SESSION · WORLD ECONOMIC FORUM DELEGATES",
     context: "Jean-Jacques in session at the B20 and C20 working groups, contributing alongside World Economic Forum think tank delegates on AI, critical minerals, and trade infrastructure.",
     objectPosition: "center 65%",
   },
   {
-    src: "/assets/g20-trade-finance-hall_5178a158.webp",
+    src: "/manus-storage/g20-trade-finance-hall_5178a158_1c8b980b.webp",
     caption: "G20 AFRICA OUTREACH AND INVESTMENT CONFERENCE · TRADE FINANCE WORKING GROUP",
     context: "The G20 Africa Outreach and Investment Conference private plenary chamber. The delegates who shape sovereign capital flows across the continent. This is the room where the infrastructure & Investment conversation happens.",
     objectPosition: "center 40%",
@@ -406,7 +576,7 @@ const founderPhotos = [
 // Each card: face photo, name, title, company, companyUrl, before, after, roi, quote
 const caseStudies = [
   {
-    face: "/assets/IMG_2858_77765107.jpg",
+    face: "/manus-storage/IMG_2858_77765107_58c2a400.jpg",
     name: "Timon Kriek",
     title: "Founder & Influencer",
     company: "GIIFTD",
@@ -420,7 +590,7 @@ const caseStudies = [
       "The system Jean-Jacques built optimised our revenue cycle. We went from zero to $40k in recurring revenue in less than four months. The clarity of thinking and speed of execution was unlike anything I had experienced.",
   },
   {
-    face: "/assets/IMG_2857_91cfe064.jpg",
+    face: "/manus-storage/IMG_2857_91cfe064_beb36b20.jpg",
     name: "Jandre De Beer",
     title: "Founder & CEO",
     company: "V8-Media",
@@ -434,7 +604,7 @@ const caseStudies = [
       "Problems we had been sitting with in our sales process for months were solved in less than 30 days. The clarity and the speed of implementation was unlike anything I had experienced working with other firms before.",
   },
   {
-    face: "/assets/anas-benmeidoub_049a6362.webp",
+    face: "/manus-storage/anas-benmeidoub_049a6362_f484dc85.webp",
     name: "Anas Ben Meidoub",
     title: "Partner",
     company: "Ryad VC",
@@ -451,7 +621,7 @@ const caseStudies = [
 
 const founderReviews = [
   {
-    face: "/assets/francois-dewet_7d95693c.jpg",
+    face: "/manus-storage/francois-dewet_7d95693c_81fa9a6f.jpg",
     name: "Francois De Wet",
     company: "CEO, Wamly.io",
     quote:
@@ -459,7 +629,7 @@ const founderReviews = [
     door: 1,
   },
   {
-    face: "/assets/edgars-podnieks_699eeeb5.jpg",
+    face: "/manus-storage/edgars-podnieks_699eeeb5_2d0a2703.jpg",
     name: "Edgars Podnieks",
     company: "CEO, Daltyn Invest",
     quote:
@@ -467,7 +637,7 @@ const founderReviews = [
     door: 1,
   },
   {
-    face: "/assets/thato-garekoe_9e22aa23.webp",
+    face: "/manus-storage/thato-garekoe_9e22aa23_2f1253a2.webp",
     name: "Thato Garekoe",
     company: "Founder, Rekisa",
     quote:
@@ -475,7 +645,7 @@ const founderReviews = [
     door: 3,
   },
   {
-    face: "/assets/pietro-trebisonda_1c9fec4f.webp",
+    face: "/manus-storage/pietro-trebisonda_1c9fec4f_6d5c8aff.webp",
     name: "Pietro Trebisonda",
     company: "Cybersecurity & Insurtech, ISO/IEC 27001 · Italy",
     quote:
@@ -484,7 +654,7 @@ const founderReviews = [
   },
   {
     // Molemo Nthate Bogoshe Morgan — The Afri-Morgan Group — Door II review
-    face: "/assets/Screenshot2026-05-29at11.00.17_e0cf6571.png",
+    face: "/manus-storage/Screenshot2026-05-29at11.00.17_e0cf6571_6ee3ff1a.png",
     name: "Molemo Nthate Bogoshe Morgan",
     company: "The Afri-Morgan Group",
     quote:
@@ -493,7 +663,7 @@ const founderReviews = [
   },
   {
     // Dr. Kat Kesty — Moss Laser Surgeon — Door II review
-    face: "/assets/IMG_2849_96b438d7.jpg",
+    face: "/manus-storage/IMG_2849_96b438d7_0a887ff0.jpg",
     name: "Dr. Kat Kesty",
     company: "Moss Laser Surgeon",
     quote:
@@ -502,7 +672,7 @@ const founderReviews = [
   },
   {
     // Altaf Aslam — Director at P&G | IIM-A | NIT-C — Door II review
-    face: "/assets/IMG_2724_4aeca3d3.jpg",
+    face: "/manus-storage/IMG_2724_4aeca3d3_e5f2b8ad.jpg",
     name: "Altaf Aslam",
     company: "Director, Procter & Gamble | IIM-A | NIT-C",
     quote:
@@ -511,7 +681,7 @@ const founderReviews = [
   },
   {
     // Buntu Majaja — SA Innovation Summit — Door II review
-    face: "/assets/IMG_2850_6c3e1077.jpg",
+    face: "/manus-storage/IMG_2850_6c3e1077_ad2a0dad.jpg",
     name: "Buntu Majaja",
     company: "SA Innovation Summit",
     quote:
@@ -520,7 +690,7 @@ const founderReviews = [
   },
   {
     // Dean White — CEO, King Contractors Agency & Digital Mastery Limited — Door II review
-    face: "/assets/IMG_2725_c79c61ad.jpg",
+    face: "/manus-storage/IMG_2725_c79c61ad_cf061efe.jpg",
     name: "Dean White",
     company: "CEO, King Contractors Agency & Digital Mastery Limited",
     quote:
@@ -537,29 +707,33 @@ function FounderAuthorityStrip() {
   const hasRealPhotos = founderPhotos.some((p) => !p.src.startsWith("TODO"));
   return (
     <section className="founder-authority-strip" aria-label="Founder authority and proof">
-      <div className="section-heading">
-        <Eyebrow>THE OPERATOR BEHIND THE SYSTEM</Eyebrow>
-        <h2>Jean-Jacques has been in the room.</h2>
-      </div>
-      <p className="founder-authority-prose">
-        From G20 Trade Finance working groups and World Economic Forum think tank sessions, to B20 and C20 working groups alongside McKinsey, Bain, and WEF-invited delegates, to Huawei Enterprise Intelligence boardrooms and sovereign infrastructure deployments across continents. Selfbuiltsystems is not a firm that theorises about the frontier. It is a firm that has been operating there.
-      </p>
+      <FadeUp>
+        <div className="section-heading">
+          <Eyebrow>THE OPERATOR BEHIND THE SYSTEM</Eyebrow>
+          <h2>Jean-Jacques has been in the room.</h2>
+        </div>
+        <p className="founder-authority-prose">
+          From G20 Trade Finance working groups and World Economic Forum think tank sessions, to B20 and C20 working groups alongside McKinsey, Bain, and WEF-invited delegates, to Huawei Enterprise Intelligence boardrooms and sovereign infrastructure deployments across continents. Selfbuiltsystems is not a firm that theorises about the frontier. It is a firm that has been operating there.
+        </p>
+      </FadeUp>
       <div className="founder-photo-grid">
         {founderPhotos.map((photo, i) => (
-          <figure key={i} className="founder-photo-card">
-            {hasRealPhotos && !photo.src.startsWith("TODO") ? (
-              <img src={photo.src} alt={photo.caption} loading="lazy" style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined} />
-            ) : (
-              <div className="founder-photo-placeholder" aria-label={photo.caption}>
-                <span className="photo-placeholder-icon">&#9654;</span>
-                <span className="photo-placeholder-label">Photo pending upload</span>
-              </div>
-            )}
-            <figcaption>
-              <span className="eyebrow">{photo.caption}</span>
-              <p>{photo.context}</p>
-            </figcaption>
-          </figure>
+          <FadeUp key={i} delay={i * 0.1}>
+            <figure className="founder-photo-card">
+              {hasRealPhotos && !photo.src.startsWith("TODO") ? (
+                <img src={photo.src} alt={photo.caption} loading="lazy" style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined} />
+              ) : (
+                <div className="founder-photo-placeholder" aria-label={photo.caption}>
+                  <span className="photo-placeholder-icon">&#9654;</span>
+                  <span className="photo-placeholder-label">Photo pending upload</span>
+                </div>
+              )}
+              <figcaption>
+                <span className="eyebrow">{photo.caption}</span>
+                <p>{photo.context}</p>
+              </figcaption>
+            </figure>
+          </FadeUp>
         ))}
       </div>
     </section>
@@ -569,13 +743,16 @@ function FounderAuthorityStrip() {
 function CaseStudySection() {
   return (
     <section className="case-study-section" aria-label="Proof of work">
-      <div className="section-heading">
-        <Eyebrow>PROOF OF WORK</Eyebrow>
-        <h2>The firms that moved. The results they got.</h2>
-      </div>
+      <FadeUp>
+        <div className="section-heading">
+          <Eyebrow>PROOF OF WORK</Eyebrow>
+          <h2>The firms that moved. The results they got.</h2>
+        </div>
+      </FadeUp>
       <div className="case-study-grid">
         {caseStudies.map((cs, i) => (
-          <article key={i} className="case-study-card">
+          <FadeUp key={i} delay={i * 0.12}>
+          <article className="case-study-card">
             <div className="cs-header">
               <div className="cs-face">
                 {!cs.face.startsWith("TODO") ? (
@@ -608,6 +785,7 @@ function CaseStudySection() {
               <p>{cs.quote}</p>
             </blockquote>
           </article>
+          </FadeUp>
         ))}
       </div>
     </section>
@@ -618,10 +796,11 @@ function ReviewStrip({ doorFilter }: { doorFilter: 1 | 2 | 3 }) {
   const reviews = founderReviews.filter((r) => r.door === doorFilter);
   return (
     <section className="review-strip" aria-label="Founder reviews">
-      <Eyebrow>DIRECT FROM THE OPERATORS</Eyebrow>
+      <FadeUp><Eyebrow>DIRECT FROM THE OPERATORS</Eyebrow></FadeUp>
       <div className="review-grid">
         {reviews.map((r, i) => (
-          <article key={i} className="review-card">
+          <FadeUp key={i} delay={i * 0.08}>
+          <article className="review-card">
             <div className="review-face">
               {!r.face.startsWith("TODO") ? (
                 <img src={r.face} alt={r.name} />
@@ -637,6 +816,7 @@ function ReviewStrip({ doorFilter }: { doorFilter: 1 | 2 | 3 }) {
               <span>{r.company}</span>
             </footer>
           </article>
+          </FadeUp>
         ))}
       </div>
     </section>
@@ -673,37 +853,26 @@ function PortalPage() {
           <VslBlock caption="Founder Brief" />
         </section>
 
-        <section className="category-frame">
-          <p>
-            Every fifty to one hundred years, a new infrastructure cycle replaces the last one. The
-            group that builds the new rails owns the next era. The group that does not, rents from
-            the people who did. The cycle is already underway. The question is which side of it you
-            are on.
-          </p>
-        </section>
+        <FadeUp>
+          <section className="category-frame">
+            <p>
+              Every fifty to one hundred years, a new infrastructure cycle replaces the last one. The
+              group that builds the new rails owns the next era. The group that does not, rents from
+              the people who did. The cycle is already underway. The question is which side of it you
+              are on.
+            </p>
+          </section>
+        </FadeUp>
 
         <section className="principles-frame">
-          <article>
-            <Eyebrow>FULL STACK, NOT APPLICATION LAYER</Eyebrow>
-            <p>
-              Frontier value is captured by companies that operate the chip, the compute, the model,
-              the deployment, the data feedback loop, and the physical layer. We build the stack.
-            </p>
-          </article>
-          <article>
-            <Eyebrow>CLOSED-LOOP SYSTEMS</Eyebrow>
-            <p>
-              Every system we build is a closed loop. Deployment generates feedback, feedback
-              retrains the system, and the system compounds.
-            </p>
-          </article>
-          <article>
-            <Eyebrow>MISSION ALIGNMENT</Eyebrow>
-            <p>
-              The hardest problem in this era is human alignment, mission alignment, and the
-              incentive systems that hold both together over time.
-            </p>
-          </article>
+          {[{label:"FULL STACK, NOT APPLICATION LAYER",text:"Frontier value is captured by companies that operate the chip, the compute, the model, the deployment, the data feedback loop, and the physical layer. We build the stack."},{label:"CLOSED-LOOP SYSTEMS",text:"Every system we build is a closed loop. Deployment generates feedback, feedback retrains the system, and the system compounds."},{label:"MISSION ALIGNMENT",text:"The hardest problem in this era is human alignment, mission alignment, and the incentive systems that hold both together over time."}].map((p,i)=>(
+            <FadeUp key={p.label} delay={i*0.12}>
+              <article>
+                <Eyebrow>{p.label}</Eyebrow>
+                <p>{p.text}</p>
+              </article>
+            </FadeUp>
+          ))}
         </section>
 
         <StackSection />
@@ -1163,7 +1332,7 @@ function DoneForYouPage() {
           <div className="founder-photo-grid huawei-photo-grid">
             <figure className="founder-photo-card">
               <img
-                src="/assets/jean-huawei-group_6d9fd09d.jpg"
+                src="/manus-storage/jean-huawei-group_6d9fd09d_cd38a96d.jpg"
                 alt="Jean-Jacques with the Huawei Enterprise Intelligence team, December 2025"
                 loading="lazy"
               />
@@ -1174,7 +1343,7 @@ function DoneForYouPage() {
             </figure>
             <figure className="founder-photo-card">
               <img
-                src="/assets/jean-huawei-boardroom_69893c92.jpg"
+                src="/manus-storage/jean-huawei-boardroom_69893c92_33de85a4.jpg"
                 alt="Jean-Jacques in the Huawei Enterprise Intelligence boardroom working session"
                 loading="lazy"
               />
@@ -1185,7 +1354,7 @@ function DoneForYouPage() {
             </figure>
             <figure className="founder-photo-card">
               <img
-                src="/assets/jean-huawei-agi-session_13f48ae3.webp"
+                src="/manus-storage/jean-huawei-agi-session_13f48ae3_83df625d.webp"
                 alt="Huawei Cloud AGI architecture briefing with Jean-Jacques, showing OpenAI five-level AGI framework on dual screens"
                 loading="lazy"
               />
