@@ -828,8 +828,8 @@ function ReviewStrip({ doorFilter }: { doorFilter: 1 | 2 | 3 }) {
 ───────────────────────────────────────────── */
 function PortalPage() {
   usePageMeta(
-    "Selfbuiltsystems | Three Doors Into The Frontier",
-    "Selfbuiltsystems designs, deploys, and capitalises full-stack architecture across intelligence, bits, electrons, atoms, capital, and institutions.",
+    "Selfbuiltsystems | The Leading International Frontier Systems Firm",
+    "Selfbuiltsystems is the leading international Frontier Systems Firm. We design, deploy, and capitalise full-stack AI operating architecture across intelligence, bits, electrons, atoms, capital, and institutions. Access is by application.",
   );
 
   return (
@@ -890,8 +890,8 @@ function PortalPage() {
 ───────────────────────────────────────────── */
 function SelfBuildPage() {
   usePageMeta(
-    "Selfbuiltsystems Door I | Self-Build Catalogue",
-    "Operator products that translate Selfbuiltsystems full-stack systems thinking into SMB-friendly prompts, playbooks, templates, and agent workflows.",
+    "Selfbuiltsystems Door I | Self-Build Operator Stack",
+    "The operating language of the leading international Frontier Systems Firm, compressed for the self-build operator. Prompts, playbooks, and agent workflows built from the same logic Selfbuiltsystems uses at the enterprise level.",
   );
 
   return (
@@ -1230,8 +1230,8 @@ function QualificationForm() {
 ───────────────────────────────────────────── */
 function DoneForYouPage() {
   usePageMeta(
-    "Selfbuiltsystems Door II | Frontier OS Built With You",
-    "Apply to design, deploy, and capitalise full-stack AI operating architecture across intelligence, bits, electrons, atoms, capital, and institutions.",
+    "Selfbuiltsystems Door II | Frontier OS: Full-Stack AI Infrastructure Built With You",
+    "Apply to have Selfbuiltsystems, the leading international Frontier Systems Firm, design and deploy your full-stack AI operating system across intelligence, bits, electrons, atoms, capital, and institutions. Not every team qualifies.",
   );
 
   const phases: [string, string, string][] = [
@@ -1597,8 +1597,8 @@ function SyndicateApplyForm() {
 ───────────────────────────────────────────── */
 function SyndicatePage() {
   usePageMeta(
-    "The Frontier Syndicate | Door III",
-    "The room around the Frontier Systems Firm. Operators, allocators, and builders operating across intelligence, bits, electrons, atoms, capital, and institutions. Membership is by application.",
+    "The Frontier Syndicate | The Room Around the Leading International Frontier Systems Firm",
+    "A curated, application-only room for operators, allocators, and builders working across the full-stack architecture of the leading international Frontier Systems Firm. Intelligence, capital, and infrastructure converge here. Membership is by application.",
   );
 
   const stackRows: [string, string][] = [
@@ -1835,7 +1835,7 @@ function SyndicatePage() {
    NOT FOUND
 ───────────────────────────────────────────── */
 function NotFoundFunnelPage() {
-  usePageMeta("Selfbuiltsystems | Route Not Found", "Return to the Selfbuiltsystems three-door portal.");
+  usePageMeta("Selfbuiltsystems | Page Not Found", "Return to Selfbuiltsystems, the leading international Frontier Systems Firm.");
   return (
     <div className="page-shell">
       <Header />
@@ -2000,8 +2000,8 @@ function CheckoutPage({ productKey }: { productKey: string }) {
 ───────────────────────────────────────────── */
 function QualifyPage() {
   usePageMeta(
-    "Selfbuiltsystems | Quick Qualification",
-    "Answer 5 quick questions to see if a Frontier OS strategy call is the right next step for your business.",
+    "Selfbuiltsystems | Qualify for a Frontier OS Strategy Call",
+    "Answer 5 quick questions to determine if Selfbuiltsystems Frontier OS is the right AI operating system for your business. The leading international Frontier Systems Firm. Not every team qualifies.",
   );
 
   const [step, setStep] = useState(0);
@@ -2122,8 +2122,8 @@ function QualifyPage() {
 ───────────────────────────────────────────── */
 function NotAFitPage() {
   usePageMeta(
-    "Selfbuiltsystems | Not the Right Fit Yet",
-    "Based on your answers, Frontier OS is not the right next step right now. Here is what we recommend instead.",
+    "Selfbuiltsystems | Not the Right Fit Right Now",
+    "Based on your answers, Frontier OS from Selfbuiltsystems is not the right next step right now. Here is how to prepare and what to do next.",
   );
 
   return (
@@ -2191,8 +2191,8 @@ function NotAFitPage() {
 ───────────────────────────────────────────── */
 function QualifiedPage() {
   usePageMeta(
-    "Selfbuiltsystems | You Qualify. Book Your Call.",
-    "You are a fit for Frontier OS. Book your 30-minute strategy call with the Selfbuiltsystems team now.",
+    "Selfbuiltsystems | You Qualify for Frontier OS",
+    "You qualify to work with Selfbuiltsystems, the leading international Frontier Systems Firm. Book your 30-minute strategy call now and get a clear deployment plan.",
   );
 
   // TODO: Replace this URL with your real Calendly booking link
@@ -2265,8 +2265,8 @@ function QualifiedPage() {
 ───────────────────────────────────────────── */
 function BookingConfirmationPage() {
   usePageMeta(
-    "Selfbuiltsystems | Call Confirmed",
-    "Your strategy call is booked. Here is how to prepare.",
+    "Selfbuiltsystems | Strategy Call Confirmed",
+    "Your Frontier OS strategy call with Selfbuiltsystems is confirmed. Here is how to prepare for the most valuable 30 minutes of your operating model.",
   );
 
   useEffect(() => {
