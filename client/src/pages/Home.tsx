@@ -11,12 +11,12 @@ import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 
-const portalVisual = "/manus-storage/sbs-dark-frontier-portal_bbf85b1f.webp";
+const portalVisual = "/assets/sbs-dark-frontier-portal.webp";
 
 const productAssets = {
-  vault: "/manus-storage/master-prompt-vault-mockup-transparent_cba99e5c_92de3c30.png",
-  playbook: "/manus-storage/self-build-playbook-mockup-transparent_9ad47f20_dba0f3b5.png",
-  stack: "/manus-storage/operator-funnel-stack-mockup-transparent_500ae9b4_deab528c.png",
+  vault: "/assets/master-prompt-vault-mockup-transparent_cba99e5c.webp",
+  playbook: "/assets/self-build-playbook-mockup-transparent_9ad47f20.webp",
+  stack: "/assets/operator-funnel-stack-mockup-transparent_500ae9b4.webp",
 };
 
 const checkoutProducts: Record<
@@ -197,7 +197,7 @@ function Header() {
     <header className={`site-nav ${scrolled ? "site-nav--compact" : ""}`}>
       <Link href="/" className="wordmark wordmark--logo" onClick={() => track("PageView", { route: "portal" })}>
         <img
-          src="/manus-storage/sbs-logo_ec99e024.webp"
+          src="/assets/sbs-logo.webp"
           alt="Selfbuiltsystems"
           className="nav-logo"
         />
@@ -465,15 +465,15 @@ function DoorCards() {
 }
 
 const logoAssets = [
-  { src: "/manus-storage/foton_15473a6b_57cf1735.svg",     alt: "Foton" },
-  { src: "/manus-storage/wef_1976ab3d_07843249.svg",       alt: "World Economic Forum" },
-  { src: "/manus-storage/worldbank_4b416240_fe69f497.svg", alt: "The World Bank" },
-  { src: "/manus-storage/mufg_59398bb3_d1ec556c.svg",      alt: "MUFG" },
-  { src: "/manus-storage/un_4f379338_2c285fdc.svg",        alt: "United Nations" },
-  { src: "/manus-storage/byd_31bdfb65_a31394ea.svg",       alt: "BYD" },
-  { src: "/manus-storage/huawei_aca3a3c3_4fe07fcf.svg",    alt: "Huawei" },
-  { src: "/manus-storage/oreflo_681800c2_68b07131.svg",    alt: "OreFlo.ai" },
-  { src: "/manus-storage/dji_7d814277_b71329aa.svg",       alt: "DJI" },
+  { src: "/assets/foton_15473a6b.svg",     alt: "Foton" },
+  { src: "/assets/wef_1976ab3d.svg",       alt: "World Economic Forum" },
+  { src: "/assets/worldbank_4b416240.svg", alt: "The World Bank" },
+  { src: "/assets/mufg_59398bb3.svg",      alt: "MUFG" },
+  { src: "/assets/un_4f379338.svg",        alt: "United Nations" },
+  { src: "/assets/byd_31bdfb65.svg",       alt: "BYD" },
+  { src: "/assets/huawei_aca3a3c3.webp",    alt: "Huawei" },
+  { src: "/assets/oreflo_681800c2.svg",    alt: "OreFlo.ai" },
+  { src: "/assets/dji_7d814277.svg",       alt: "DJI" },
   // TODO: Insert Cherry logo here once user uploads the SVG asset
   // TODO: Insert Google logo here once user uploads the SVG asset
 ];
@@ -549,23 +549,23 @@ function StackSection() {
 // Founder authority photos — real CDN URLs wired in.
 const founderPhotos = [
   {
-    src: "/manus-storage/jean-g20-solo_cc296301_d569c761.webp",
+    src: "/assets/jean-g20-solo_cc296301.webp",
     caption: "G20 SOUTH AFRICA 2025 · TRADE FINANCE WORKING GROUP",
     context: "Jean-Jacques at the G20 South Africa 2025 Trade Finance Working Group. Invited alongside McKinsey, Bain, and World Economic Forum delegates. The infrastructure conversation happens at this level first.",
   },
   {
-    src: "/manus-storage/jean-prince-eswatini_d1a16bcd_f1b60dea.webp",
+    src: "/assets/jean-prince-eswatini_d1a16bcd.webp",
     caption: "C20 SOUTH AFRICA 2025 · WITH H.R.H. PRINCE MLUNGISI DLAMINI, ESWATINI",
     context: "Jean-Jacques with H.R.H. Prince Mlungisi Dlamini of Eswatini at the C20 South Africa 2025 summit. A business partner and sovereign infrastructure principal across the continent. Together they work on sovereign infrastructure deployments across Africa.",
   },
   {
-    src: "/manus-storage/IMG_6858_d4d6cf62_9b3c526c.webp",
+    src: "/assets/IMG_6858_d4d6cf62.webp",
     caption: "B20 · C20 WORKING GROUP SESSION · WORLD ECONOMIC FORUM DELEGATES",
     context: "Jean-Jacques in session at the B20 and C20 working groups, contributing alongside World Economic Forum think tank delegates on AI, critical minerals, and trade infrastructure.",
     objectPosition: "center 65%",
   },
   {
-    src: "/manus-storage/g20-trade-finance-hall_5178a158_1c8b980b.webp",
+    src: "/assets/g20-trade-finance-hall_5178a158.webp",
     caption: "G20 AFRICA OUTREACH AND INVESTMENT CONFERENCE · TRADE FINANCE WORKING GROUP",
     context: "The G20 Africa Outreach and Investment Conference private plenary chamber. The delegates who shape sovereign capital flows across the continent. This is the room where the infrastructure & Investment conversation happens.",
     objectPosition: "center 40%",
@@ -576,7 +576,7 @@ const founderPhotos = [
 // Each card: face photo, name, title, company, companyUrl, before, after, roi, quote
 const caseStudies = [
   {
-    face: "/manus-storage/IMG_2858_77765107_58c2a400.jpg",
+    face: "/assets/IMG_2858_77765107.jpg",
     name: "Timon Kriek",
     title: "Founder & Influencer",
     company: "GIIFTD",
@@ -590,7 +590,7 @@ const caseStudies = [
       "The system Jean-Jacques built optimised our revenue cycle. We went from zero to $40k in recurring revenue in less than four months. The clarity of thinking and speed of execution was unlike anything I had experienced.",
   },
   {
-    face: "/manus-storage/IMG_2857_91cfe064_beb36b20.jpg",
+    face: "/assets/IMG_2857_91cfe064.jpg",
     name: "Jandre De Beer",
     title: "Founder & CEO",
     company: "V8-Media",
@@ -604,7 +604,7 @@ const caseStudies = [
       "Problems we had been sitting with in our sales process for months were solved in less than 30 days. The clarity and the speed of implementation was unlike anything I had experienced working with other firms before.",
   },
   {
-    face: "/manus-storage/anas-benmeidoub_049a6362_f484dc85.webp",
+    face: "/assets/anas-benmeidoub_049a6362.webp",
     name: "Anas Ben Meidoub",
     title: "Partner",
     company: "Ryad VC",
@@ -621,7 +621,7 @@ const caseStudies = [
 
 const founderReviews = [
   {
-    face: "/manus-storage/francois-dewet_7d95693c_81fa9a6f.jpg",
+    face: "/assets/francois-dewet_7d95693c.jpg",
     name: "Francois De Wet",
     company: "CEO, Wamly.io",
     quote:
@@ -629,7 +629,7 @@ const founderReviews = [
     door: 1,
   },
   {
-    face: "/manus-storage/edgars-podnieks_699eeeb5_2d0a2703.jpg",
+    face: "/assets/edgars-podnieks_699eeeb5.jpg",
     name: "Edgars Podnieks",
     company: "CEO, Daltyn Invest",
     quote:
@@ -637,7 +637,7 @@ const founderReviews = [
     door: 1,
   },
   {
-    face: "/manus-storage/thato-garekoe_9e22aa23_2f1253a2.webp",
+    face: "/assets/thato-garekoe_9e22aa23.webp",
     name: "Thato Garekoe",
     company: "Founder, Rekisa",
     quote:
@@ -645,7 +645,7 @@ const founderReviews = [
     door: 3,
   },
   {
-    face: "/manus-storage/pietro-trebisonda_1c9fec4f_6d5c8aff.webp",
+    face: "/assets/pietro-trebisonda_1c9fec4f.webp",
     name: "Pietro Trebisonda",
     company: "Cybersecurity & Insurtech, ISO/IEC 27001 · Italy",
     quote:
@@ -654,7 +654,7 @@ const founderReviews = [
   },
   {
     // Molemo Nthate Bogoshe Morgan — The Afri-Morgan Group — Door II review
-    face: "/manus-storage/Screenshot2026-05-29at11.00.17_e0cf6571_6ee3ff1a.png",
+    face: "/assets/Screenshot2026-05-29at11.00.17_e0cf6571.png",
     name: "Molemo Nthate Bogoshe Morgan",
     company: "The Afri-Morgan Group",
     quote:
@@ -663,7 +663,7 @@ const founderReviews = [
   },
   {
     // Dr. Kat Kesty — Moss Laser Surgeon — Door II review
-    face: "/manus-storage/IMG_2849_96b438d7_0a887ff0.jpg",
+    face: "/assets/IMG_2849_96b438d7.jpg",
     name: "Dr. Kat Kesty",
     company: "Moss Laser Surgeon",
     quote:
@@ -672,7 +672,7 @@ const founderReviews = [
   },
   {
     // Altaf Aslam — Director at P&G | IIM-A | NIT-C — Door II review
-    face: "/manus-storage/IMG_2724_4aeca3d3_e5f2b8ad.jpg",
+    face: "/assets/IMG_2724_4aeca3d3.jpg",
     name: "Altaf Aslam",
     company: "Director, Procter & Gamble | IIM-A | NIT-C",
     quote:
@@ -681,7 +681,7 @@ const founderReviews = [
   },
   {
     // Buntu Majaja — SA Innovation Summit — Door II review
-    face: "/manus-storage/IMG_2850_6c3e1077_ad2a0dad.jpg",
+    face: "/assets/IMG_2850_6c3e1077.jpg",
     name: "Buntu Majaja",
     company: "SA Innovation Summit",
     quote:
@@ -690,7 +690,7 @@ const founderReviews = [
   },
   {
     // Dean White — CEO, King Contractors Agency & Digital Mastery Limited — Door II review
-    face: "/manus-storage/IMG_2725_c79c61ad_cf061efe.jpg",
+    face: "/assets/IMG_2725_c79c61ad.jpg",
     name: "Dean White",
     company: "CEO, King Contractors Agency & Digital Mastery Limited",
     quote:
@@ -1332,7 +1332,7 @@ function DoneForYouPage() {
           <div className="founder-photo-grid huawei-photo-grid">
             <figure className="founder-photo-card">
               <img
-                src="/manus-storage/jean-huawei-group_6d9fd09d_cd38a96d.jpg"
+                src="/assets/jean-huawei-group_6d9fd09d.jpg"
                 alt="Jean-Jacques with the Huawei Enterprise Intelligence team, December 2025"
                 loading="lazy"
               />
@@ -1343,7 +1343,7 @@ function DoneForYouPage() {
             </figure>
             <figure className="founder-photo-card">
               <img
-                src="/manus-storage/jean-huawei-boardroom_69893c92_33de85a4.jpg"
+                src="/assets/jean-huawei-boardroom_69893c92.jpg"
                 alt="Jean-Jacques in the Huawei Enterprise Intelligence boardroom working session"
                 loading="lazy"
               />
@@ -1354,7 +1354,7 @@ function DoneForYouPage() {
             </figure>
             <figure className="founder-photo-card">
               <img
-                src="/manus-storage/jean-huawei-agi-session_13f48ae3_83df625d.webp"
+                src="/assets/jean-huawei-agi-session_13f48ae3.webp"
                 alt="Huawei Cloud AGI architecture briefing with Jean-Jacques, showing OpenAI five-level AGI framework on dual screens"
                 loading="lazy"
               />
