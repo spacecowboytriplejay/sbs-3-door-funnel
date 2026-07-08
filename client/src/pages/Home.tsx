@@ -399,34 +399,58 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
 }
 
+const YOUTUBE_VIDEO_ID = "60uzdW3KHKc";
+const YOUTUBE_URL = `https://youtu.be/${YOUTUBE_VIDEO_ID}`;
+
 function VslBlock({
   caption,
-  duration = "02:18",
   longForm = false,
 }: {
   caption: string;
   duration?: string;
   longForm?: boolean;
 }) {
+  const [playing, setPlaying] = useState(false);
+
+  function handlePlay() {
+    track("ViewContent", { content_name: caption });
+    setPlaying(true);
+  }
+
   return (
-    <div
-      className={`vsl-shell ${longForm ? "vsl-shell--wide" : ""}`}
-      onClick={() => track("ViewContent", { content_name: caption })}
-      role="button"
-      tabIndex={0}
-    >
-      <div className="vsl-frame" aria-label={`${caption} video placeholder`}>
-        <img src={portalVisual} alt="Dark editorial frontier systems visual" />
-        <div className="vsl-overlay" />
-        <div className="play-button" aria-hidden="true">
-          &#9654;
-        </div>
-        <div className="poster-note">Real Jean-Jacques VSL frame pending</div>
-        <button className="unmute-chip">Unmute</button>
+    <div className={`vsl-shell ${longForm ? "vsl-shell--wide" : ""}`}>
+      <div className="vsl-frame" aria-label={caption}>
+        {playing ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
+            title={caption}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="vsl-iframe"
+          />
+        ) : (
+          <>
+            <img src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`} alt={caption} className="vsl-thumbnail" />
+            <div className="vsl-overlay" />
+            <button
+              className="play-button"
+              onClick={handlePlay}
+              aria-label={`Play ${caption}`}
+            >
+              &#9654;
+            </button>
+            <a
+              href={YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="vsl-watch-link"
+              onClick={() => track("ViewContent", { content_name: `${caption} YouTube link` })}
+            >
+              Watch on YouTube
+            </a>
+          </>
+        )}
       </div>
-      <p className="caption">
-        VSL · {caption} · {duration}
-      </p>
     </div>
   );
 }
