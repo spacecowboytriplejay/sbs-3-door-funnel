@@ -29,7 +29,7 @@ const checkoutProducts: Record<
     pitch:
       "A practical entry point into the intelligence layer. Prompts, operating language, and thinking patterns for SMB operators who want to move with frontier discipline.",
     image: productAssets.vault,
-    // TODO: Replace with Gumroad product link — Master Prompt Vault $17 — automated PDF delivery + onboarding email via Gumroad (gumroad.com)
+    // TODO: Replace with Gumroad product link - Master Prompt Vault $17 - automated PDF delivery + onboarding email via Gumroad (gumroad.com)
     gumroadHref: "#GUMROAD_LINK_VAULT_17",
     nextStep: "Your download link will arrive in your inbox from Gumroad within 60 seconds. Check spam if it does not appear.",
   },
@@ -39,7 +39,7 @@ const checkoutProducts: Record<
     pitch:
       "A month-long operating sequence for turning scattered AI tools into a closed-loop system your team can actually use, refine, and compound.",
     image: productAssets.playbook,
-    // TODO: Replace with Gumroad product link — 30-Day Self-Build Playbook $150 — PDF not yet created, build from existing SOPs/playbooks
+    // TODO: Replace with Gumroad product link - 30-Day Self-Build Playbook $150 - PDF not yet created, build from existing SOPs/playbooks
     gumroadHref: "#GUMROAD_LINK_PLAYBOOK_150",
     nextStep: "Your download link will arrive in your inbox from Gumroad within 60 seconds. Check spam if it does not appear.",
   },
@@ -49,18 +49,18 @@ const checkoutProducts: Record<
     pitch:
       "Funnel templates and agent workflows designed to give smaller teams the psychology, proof structure, and conversion leverage of a larger systems firm.",
     image: productAssets.stack,
-    // TODO: Replace with Gumroad product link — Operator Funnel Templates + Agent Stack $300
+    // TODO: Replace with Gumroad product link - Operator Funnel Templates + Agent Stack $300
     gumroadHref: "#GUMROAD_LINK_TEMPLATES_300",
     nextStep: "Your download link will arrive in your inbox from Gumroad within 60 seconds. Check spam if it does not appear.",
   },
 };
 
 const links = {
-  // TODO: Replace with Gumroad product link — Master Prompt Vault $17 — automated PDF delivery + onboarding email via Gumroad (gumroad.com)
+  // TODO: Replace with Gumroad product link - Master Prompt Vault $17 - automated PDF delivery + onboarding email via Gumroad (gumroad.com)
   stripeVault: "#GUMROAD_LINK_VAULT_17",
-  // TODO: Replace with Gumroad product link — 30-Day Self-Build Playbook $150 — PDF not yet created, build from existing SOPs/playbooks
+  // TODO: Replace with Gumroad product link - 30-Day Self-Build Playbook $150 - PDF not yet created, build from existing SOPs/playbooks
   stripePlaybook: "#GUMROAD_LINK_PLAYBOOK_150",
-  // TODO: Replace with Gumroad product link — Operator Funnel Templates + Agent Stack $300
+  // TODO: Replace with Gumroad product link - Operator Funnel Templates + Agent Stack $300
   stripeTemplates: "#GUMROAD_LINK_TEMPLATES_300",
   // TODO: Wire to backend / Typeform / Airtable qualification form endpoint
   application: "#APPLICATION_FORM_URL",
@@ -570,7 +570,7 @@ function StackSection() {
    SOCIAL PROOF DATA
 ───────────────────────────────────────────── */
 
-// Founder authority photos — real CDN URLs wired in.
+// Founder authority photos - real CDN URLs wired in.
 const founderPhotos = [
   {
     src: "/assets/jean-g20-solo_cc296301.webp",
@@ -677,16 +677,16 @@ const founderReviews = [
     door: 3,
   },
   {
-    // Molemo Nthate Bogoshe Morgan — The Afri-Morgan Group — Door II review
+    // Molemo Nthate Bogoshe Morgan - The Afri-Morgan Group - Door II review
     face: "/assets/Screenshot2026-05-29at11.00.17_e0cf6571.png",
     name: "Molemo Nthate Bogoshe Morgan",
     company: "The Afri-Morgan Group",
     quote:
-      "We have engaged Jean Jacques and his team at SelfBuiltSystems on several high-value mandates across our private equity and infrastructure portfolio — including the Green Corridor Project with Huawei Technologies, large-scale acquisitions and M&A, and the OreFlo.ai AI industrial stack build. They bring a rare combination of deep AI systems expertise and commercial deal intelligence, and have consistently operated at the level we require for complex, high-stakes engagements. Jean Jacques is one of the sharpest technology minds we have consulted with at the intersection of AI and private equity deal-making.",
+      "We have engaged Jean Jacques and his team at SelfBuiltSystems on several high-value mandates across our private equity and infrastructure portfolio, including the Green Corridor Project with Huawei Technologies, large-scale acquisitions and M&A, and the OreFlo.ai AI industrial stack build. They bring a rare combination of deep AI systems expertise and commercial deal intelligence, and have consistently operated at the level we require for complex, high-stakes engagements. Jean Jacques is one of the sharpest technology minds we have consulted with at the intersection of AI and private equity deal-making.",
     door: 2,
   },
   {
-    // Dr. Kat Kesty — Moss Laser Surgeon — Door II review
+    // Dr. Kat Kesty - Moss Laser Surgeon - Door II review
     face: "/assets/IMG_2849_96b438d7.jpg",
     name: "Dr. Kat Kesty",
     company: "Moss Laser Surgeon",
@@ -695,7 +695,7 @@ const founderReviews = [
     door: 2,
   },
   {
-    // Altaf Aslam — Director at P&G | IIM-A | NIT-C — Door II review
+    // Altaf Aslam - Director at P&G | IIM-A | NIT-C - Door II review
     face: "/assets/IMG_2724_4aeca3d3.jpg",
     name: "Altaf Aslam",
     company: "Director, Procter & Gamble | IIM-A | NIT-C",
@@ -704,7 +704,7 @@ const founderReviews = [
     door: 2,
   },
   {
-    // Buntu Majaja — SA Innovation Summit — Door II review
+    // Buntu Majaja - SA Innovation Summit - Door II review
     face: "/assets/IMG_2850_6c3e1077.jpg",
     name: "Buntu Majaja",
     company: "SA Innovation Summit",
@@ -713,7 +713,7 @@ const founderReviews = [
     door: 2,
   },
   {
-    // Dean White — CEO, King Contractors Agency & Digital Mastery Limited — Door II review
+    // Dean White - CEO, King Contractors Agency & Digital Mastery Limited - Door II review
     face: "/assets/IMG_2725_c79c61ad.jpg",
     name: "Dean White",
     company: "CEO, King Contractors Agency & Digital Mastery Limited",
@@ -1026,7 +1026,7 @@ function SelfBuildPage() {
    FALLBACK: If env vars are not set, form data is sent via mailto: pre-fill.
 ───────────────────────────────────────────── */
 
-// Airtable config — set these in Manus Secrets panel
+// Airtable config - set these in Manus Secrets panel
 const AIRTABLE_PAT = import.meta.env.VITE_AIRTABLE_PAT ?? "";
 const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID ?? "";
 const AIRTABLE_D2_TABLE = import.meta.env.VITE_AIRTABLE_D2_TABLE ?? "Applications";
@@ -1344,7 +1344,7 @@ function DoneForYouPage() {
 
         <StackSection />
 
-        {/* Huawei proof strip — Jean-Jacques with Huawei Enterprise Intelligence team */}
+        {/* Huawei proof strip - Jean-Jacques with Huawei Enterprise Intelligence team */}
         <section className="founder-authority-strip huawei-proof-strip" aria-label="Huawei Enterprise Intelligence proof">
           <div className="section-heading">
             <Eyebrow>INSIDE THE ROOM</Eyebrow>
@@ -1828,7 +1828,7 @@ function SyndicatePage() {
           </p>
         </section>
 
-        {/* SECTION 8: APPLICATION — inline form, all Apply/Council buttons scroll here */}
+        {/* SECTION 8: APPLICATION - inline form, all Apply/Council buttons scroll here */}
         <section className="syndicate-apply" id="syndicate-apply">
           <div className="qual-form-header">
             <Eyebrow>APPLICATION</Eyebrow>
@@ -2097,7 +2097,7 @@ function QualifyPage() {
     if (step < questions.length - 1) {
       setTimeout(() => setStep(step + 1), 280);
     } else {
-      // All answered — route
+      // All answered - route
       track("Lead", { content_name: "Qualify form completed" });
       const disqualified = isDisqualified(newAnswers);
       if (disqualified) {
@@ -2219,8 +2219,7 @@ function QualifiedPage() {
     "You qualify to work with Selfbuiltsystems, the leading international Frontier Systems Firm. Book your 30-minute strategy call now and get a clear deployment plan.",
   );
 
-  // TODO: Replace this URL with your real Calendly booking link
-  const CALENDLY_URL = "https://calendly.com/selfbuiltsystems/frontier-os-strategy-call";
+  const CALENDLY_URL = "https://calendly.com/selfbuiltystems-io/15min";
 
   useEffect(() => {
     track("Lead", { content_name: "Qualified page reached" });
@@ -2289,8 +2288,8 @@ function QualifiedPage() {
 ───────────────────────────────────────────── */
 function BookingConfirmationPage() {
   usePageMeta(
-    "Selfbuiltsystems | Strategy Call Confirmed",
-    "Your Frontier OS strategy call with Selfbuiltsystems is confirmed. Here is how to prepare for the most valuable 30 minutes of your operating model.",
+    "Selfbuiltsystems | Your Call Is Not Yet Confirmed",
+    "Complete these three steps now to secure your Frontier OS strategy call with Selfbuiltsystems and arrive ready to move.",
   );
 
   useEffect(() => {
@@ -2302,44 +2301,79 @@ function BookingConfirmationPage() {
       <Header />
       <main className="confirmation-main">
         <div className="confirmation-container">
-          <Eyebrow>CALL CONFIRMED</Eyebrow>
-          <h1>Your call is booked. <em>Here is how to prepare.</em></h1>
-          <p className="confirmation-prose">
-            Check your inbox for the calendar invite with the Zoom link. The call is 30 minutes. The three steps below will make it significantly more valuable.
-          </p>
-          <ol className="checkout-steps confirmation-steps">
-            <li>
-              <span className="checkout-step-num">01</span>
-              <div>
-                <strong>Watch the Frontier OS Brief.</strong>
-                <p>The brief walks through the full intelligence-to-atoms architecture, the deployment model, and the results we have achieved with operators across the stack. Operators who watch it first arrive with better questions and close faster.</p>
-                <Link
-                  className="confirmation-video-link"
-                  href="/sbs-ai"
-                  onClick={() => track("ViewContent", { content_name: "Frontier OS Brief pre-call" })}
-                >
-                  Watch the Frontier OS Brief
-                </Link>
-              </div>
-            </li>
-            <li>
-              <span className="checkout-step-num">02</span>
-              <div>
-                <strong>Join on Zoom or Google Meet. No phone calls.</strong>
-                <p>We only take calls on video. This is a working session, not a pitch. Please be in a quiet environment with your camera on. The Zoom link is in your calendar invite.</p>
-              </div>
-            </li>
-            <li>
-              <span className="checkout-step-num">03</span>
-              <div>
-                <strong>Know your one bottleneck.</strong>
-                <p>Before the call, write down the single biggest operational problem costing you the most right now. Revenue, fulfilment, reporting, or acquisition. One sentence. That is where we will start.</p>
-              </div>
-            </li>
-          </ol>
-          <div className="confirmation-footer-note">
-            <p>Questions before the call? Email <a href="mailto:hello@selfbuiltsystems.com">hello@selfbuiltsystems.com</a></p>
+
+          {/* URGENCY BANNER */}
+          <div className="confirmation-warning-banner">
+            <span className="confirmation-warning-icon">&#9888;</span>
+            <span>Your call is not yet confirmed. Complete the steps below to lock your slot.</span>
           </div>
+
+          <Eyebrow>BEFORE YOUR CALL</Eyebrow>
+          <h1>Three things that <em>determine the outcome.</em></h1>
+          <p className="confirmation-prose">
+            Most operators who book a strategy call show up unprepared and leave with a conversation instead of a plan. The three steps below take 20 minutes and are the difference between a call that changes your operating model and one that does not. Do not skip them.
+          </p>
+
+          <ol className="confirmation-steps-list">
+
+            <li className="confirmation-step">
+              <div className="confirmation-step-num">01</div>
+              <div className="confirmation-step-body">
+                <div className="confirmation-step-label">REQUIRED</div>
+                <h3>Watch the Frontier OS Brief now.</h3>
+                <p>
+                  This is the 15-minute brief that explains exactly what Selfbuiltsystems builds, how the intelligence-to-atoms architecture works, and what the first 60 days of deployment looks like. Operators who watch it first arrive with the right questions and leave with a clear deployment plan. Operators who skip it waste the call.
+                </p>
+                <a
+                  href="https://youtu.be/60uzdW3KHKc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="confirmation-cta-btn"
+                  onClick={() => track("ViewContent", { content_name: "Frontier OS Brief pre-call confirmation" })}
+                >
+                  Watch the Brief Now (15 min)
+                </a>
+              </div>
+            </li>
+
+            <li className="confirmation-step">
+              <div className="confirmation-step-num">02</div>
+              <div className="confirmation-step-body">
+                <div className="confirmation-step-label">REQUIRED</div>
+                <h3>Be on video. Be in a quiet room. Be alone.</h3>
+                <p>
+                  We do not take calls on the phone. We do not take calls from moving cars, coffee shops, or shared spaces. This is a working session with a senior member of the Selfbuiltsystems team. It requires your full attention. Camera on. Microphone working. Door closed. The Zoom link is in your calendar invite.
+                </p>
+                <div className="confirmation-checklist">
+                  <div className="confirmation-check-item">&#10003; Check your inbox for the calendar invite</div>
+                  <div className="confirmation-check-item">&#10003; Test your camera and microphone before the call</div>
+                  <div className="confirmation-check-item">&#10003; Find a quiet room with no interruptions</div>
+                </div>
+              </div>
+            </li>
+
+            <li className="confirmation-step">
+              <div className="confirmation-step-num">03</div>
+              <div className="confirmation-step-body">
+                <div className="confirmation-step-label">REQUIRED</div>
+                <h3>Write down your one bottleneck before we start.</h3>
+                <p>
+                  Before the call, write one sentence that answers this question: what is the single biggest operational problem costing you the most right now? Revenue, fulfilment, reporting, acquisition, or something else. One sentence. Bring it to the call. That is where we will start and where we will build the deployment plan from.
+                </p>
+                <div className="confirmation-commitment-block">
+                  <p className="confirmation-commitment-text">
+                    The operators who get the most out of this call are the ones who have already decided they are ready to move. If you are still exploring, this is not the right call yet. If you are ready to install the system, we will build the plan together in 30 minutes.
+                  </p>
+                </div>
+              </div>
+            </li>
+
+          </ol>
+
+          <div className="confirmation-footer-note">
+            <p>Need to reschedule? Use the link in your calendar invite. Questions? Email <a href="mailto:hello@selfbuiltsystems.com">hello@selfbuiltsystems.com</a></p>
+          </div>
+
         </div>
       </main>
       <Footer />

@@ -23,19 +23,24 @@ Design reminder: Dark Editorial Institutionalism. The document shell supports a 
     <meta name="twitter:image" content="/assets/sbs-dark-frontier-portal.webp" />
     <link rel="canonical" href="https://www.selfbuiltsystems.com" />
     <title>Selfbuiltsystems | The Leading International Frontier Systems Firm</title>
+    <!-- Meta Pixel Code -->
     <script>
-      window.SBS_META_PIXEL_ID = "META_PIXEL_ID";
-      if (window.SBS_META_PIXEL_ID && window.SBS_META_PIXEL_ID !== "META_PIXEL_ID") {
-        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', window.SBS_META_PIXEL_ID);
-        fbq('track', 'PageView');
-      }
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '654695754173158');
+    fbq('track', 'PageView');
     </script>
+    <!-- End Meta Pixel Code -->
   </head>
   <body>
+    <!-- Meta Pixel noscript fallback -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=654695754173158&ev=PageView&noscript=1" /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script defer src="%VITE_ANALYTICS_ENDPOINT%/umami" data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>

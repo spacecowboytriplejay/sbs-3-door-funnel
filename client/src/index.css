@@ -222,7 +222,7 @@ Design reminder: Dark Editorial Institutionalism. Global styling enforces warmed
   width: auto;
   display: block;
   object-fit: contain;
-  /* Logo is white on transparent — invert not needed on dark bg */
+  /* Logo is white on transparent - invert not needed on dark bg */
   filter: brightness(1);
   transition: opacity 220ms ease;
 }
@@ -294,7 +294,7 @@ Design reminder: Dark Editorial Institutionalism. Global styling enforces warmed
   grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.7fr);
 }
 
-/* Stacked hero: copy on top, VSL directly below — matches 1890.co pattern */
+/* Stacked hero: copy on top, VSL directly below - matches 1890.co pattern */
 .hero--stacked,
 .hero--primary.hero--stacked,
 .hero--syndicate.hero--stacked,
@@ -751,7 +751,7 @@ h2 em {
   width: auto;
   max-width: 160px;
   object-fit: contain;
-  /* Logos are white SVGs on transparent background — no invert needed */
+  /* Logos are white SVGs on transparent background - no invert needed */
   opacity: 0.5;
   filter: none;
   transition: opacity 240ms ease;
@@ -2908,5 +2908,144 @@ h2 em {
 @media (max-width: 560px) {
   .stack-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   BOOKING CONFIRMATION PAGE - SHOW-UP PSYCHOLOGY
+═══════════════════════════════════════════════ */
+
+.confirmation-warning-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border: 0.5px solid rgba(201, 150, 50, 0.4);
+  background: rgba(201, 150, 50, 0.06);
+  color: #c99632;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 32px;
+}
+
+.confirmation-warning-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.confirmation-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.confirmation-step {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 28px;
+  padding: 36px 0;
+  border-top: 0.5px solid #1d1d22;
+  align-items: start;
+}
+
+.confirmation-step:last-child {
+  border-bottom: 0.5px solid #1d1d22;
+}
+
+.confirmation-step-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #6b6b75;
+  padding-top: 4px;
+}
+
+.confirmation-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.confirmation-step-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  color: #c99632;
+  text-transform: uppercase;
+}
+
+.confirmation-step-body h3 {
+  font-size: clamp(20px, 2.5vw, 28px);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.confirmation-step-body p {
+  color: #8a8a92;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.confirmation-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border: 0.5px solid #c9c9b8;
+  background: rgba(201, 201, 184, 0.08);
+  color: #f5f5f0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 220ms ease, border-color 220ms ease;
+  margin-top: 4px;
+  width: fit-content;
+}
+
+.confirmation-cta-btn:hover {
+  background: rgba(201, 201, 184, 0.14);
+  border-color: #f5f5f0;
+}
+
+.confirmation-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.confirmation-check-item {
+  font-size: 13px;
+  color: #c9c9b8;
+  letter-spacing: 0.02em;
+}
+
+.confirmation-commitment-block {
+  padding: 20px 24px;
+  border-left: 2px solid #c9c9b8;
+  background: rgba(201, 201, 184, 0.04);
+  margin-top: 4px;
+}
+
+.confirmation-commitment-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #c9c9b8;
+  margin: 0;
+  font-style: italic;
+}
+
+@media (max-width: 560px) {
+  .confirmation-step {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
