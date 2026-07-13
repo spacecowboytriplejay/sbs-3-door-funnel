@@ -399,7 +399,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
 }
 
-const YOUTUBE_VIDEO_ID = "60uzdW3KHKc";
+const YOUTUBE_VIDEO_ID = "8YMdujiEBWw";
 const YOUTUBE_URL = `https://youtu.be/${YOUTUBE_VIDEO_ID}`;
 
 function VslBlock({
@@ -1877,15 +1877,52 @@ function NotFoundFunnelPage() {
 }
 
 /* ─────────────────────────────────────────────
-   DOOR I: CHECKOUT BRIDGE
+   DOOR I: COMING SOON + WAITLIST
+   Emails stored in Airtable table "WaitlistSignups" (same base as Door II).
+   Fallback: mailto to hello@selfbuiltsystems.com if Airtable not configured.
+   To access emails: airtable.com -> your base -> WaitlistSignups table.
 ───────────────────────────────────────────── */
+const AIRTABLE_WAITLIST_TABLE = import.meta.env.VITE_AIRTABLE_WAITLIST_TABLE ?? "WaitlistSignups";
+
 function CheckoutPage({ productKey }: { productKey: string }) {
   const product = checkoutProducts[productKey];
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   usePageMeta(
-    `${product?.name ?? "Checkout"} | Selfbuiltsystems`,
-    `Acquire ${product?.name ?? "this product"} from Selfbuiltsystems.`,
+    `${product?.name ?? "Coming Soon"} | Selfbuiltsystems`,
+    `${product?.name ?? "This asset"} is coming soon. Join the waitlist to be first in line.`,
   );
+
+  async function handleWaitlist(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubmitting(true);
+    setError(null);
+    track("Lead", { content_name: `Waitlist: ${product?.name ?? productKey}` });
+
+    const fields: Record<string, string> = {
+      Email: email.trim(),
+      Product: product?.name ?? productKey,
+      Price: product?.price ?? "",
+      SubmittedAt: new Date().toISOString(),
+    };
+
+    const result = await postToAirtable(AIRTABLE_WAITLIST_TABLE, fields);
+
+    if (result.ok) {
+      setSubmitted(true);
+    } else if (result.error === "not_configured") {
+      // Fallback: send via mailto so no lead is ever lost
+      window.location.href = `mailto:hello@selfbuiltsystems.com?subject=Waitlist%20Signup%20-%20${encodeURIComponent(product?.name ?? productKey)}&body=Email%3A%20${encodeURIComponent(email.trim())}%0AProduct%3A%20${encodeURIComponent(product?.name ?? productKey)}`;
+      setSubmitted(true);
+    } else {
+      setError("Something went wrong. Please email hello@selfbuiltsystems.com directly.");
+    }
+    setSubmitting(false);
+  }
 
   if (!product) {
     return (
@@ -1902,48 +1939,49 @@ function CheckoutPage({ productKey }: { productKey: string }) {
     );
   }
 
-  const isPlaceholder = product.gumroadHref.startsWith("#");
-
   return (
     <div className="page-shell">
       <Header />
       <main>
 
-        {/* CHECKOUT HERO */}
+        {/* COMING SOON HERO */}
         <section className="checkout-hero">
           <div className="checkout-product-image">
             <img src={product.image} alt={`${product.name} product mockup`} />
           </div>
           <div className="checkout-copy">
-            <Eyebrow>DOOR I · SELFBUILTSYSTEMS.IO</Eyebrow>
+            <Eyebrow>DOOR I · COMING SOON</Eyebrow>
             <h1>{product.name}</h1>
             <p className="checkout-pitch">{product.pitch}</p>
             <div className="checkout-price-row">
               <span className="checkout-price">{product.price}</span>
-              {isPlaceholder ? (
-                <span className="checkout-cta checkout-cta--pending" title="Gumroad link not yet configured">
-                  Complete Purchase
-                  <span className="checkout-pending-note">Link coming soon</span>
-                </span>
-              ) : (
-                <a
-                  className="checkout-cta"
-                  href={product.gumroadHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => track("Purchase", { content_name: product.name })}
-                >
-                  Complete Purchase
-                  <span className="checkout-trust">Powered by Gumroad · Secure checkout</span>
-                </a>
-              )}
             </div>
-            {isPlaceholder && (
-              <p className="checkout-placeholder-note">
-                Checkout link not yet configured. Replace <code>gumroadHref</code> in
-                the <code>checkoutProducts</code> object in <code>Home.tsx</code> with
-                your Gumroad product URL to activate this button.
-              </p>
+
+            {/* WAITLIST FORM */}
+            {submitted ? (
+              <div className="waitlist-thankyou">
+                <p className="waitlist-thankyou-title">You are on the list.</p>
+                <p className="waitlist-thankyou-body">We will email you at <strong>{email}</strong> the moment {product.name} is available. You will be first in line.</p>
+              </div>
+            ) : (
+              <form className="waitlist-form" onSubmit={handleWaitlist} noValidate>
+                <p className="waitlist-label">This product is not yet available. Join the waitlist and we will notify you the moment it launches.</p>
+                <div className="waitlist-input-row">
+                  <input
+                    type="email"
+                    className="waitlist-input"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <button type="submit" className="waitlist-btn" disabled={submitting}>
+                    {submitting ? "Joining..." : "Join Waitlist"}
+                  </button>
+                </div>
+                {error && <p className="waitlist-error">{error}</p>}
+                <p className="waitlist-note">No spam. One email when it launches. That is it.</p>
+              </form>
             )}
           </div>
         </section>
@@ -2325,7 +2363,7 @@ function BookingConfirmationPage() {
                   This is the 15-minute brief that explains exactly what Selfbuiltsystems builds, how the intelligence-to-atoms architecture works, and what the first 60 days of deployment looks like. Operators who watch it first arrive with the right questions and leave with a clear deployment plan. Operators who skip it waste the call.
                 </p>
                 <a
-                  href="https://youtu.be/60uzdW3KHKc"
+                  href="https://youtu.be/8YMdujiEBWw"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="confirmation-cta-btn"
