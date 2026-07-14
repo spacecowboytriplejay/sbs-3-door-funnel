@@ -1290,6 +1290,13 @@ function DoneForYouPage() {
     <div className="page-shell">
       <Header />
       <main>
+        {/* PAIN-POINT HOOK BANNER */}
+        <section className="pain-hook-banner">
+          <p className="pain-hook-text">
+            If your business does more than <strong>R3 million a year</strong> and you have already spent money on AI that did not work, <em>this is for you.</em>
+          </p>
+        </section>
+
         <section className="hero hero--primary hero--stacked" id="apply-anchor">
           <div className="hero-copy reveal">
             <Eyebrow>DOOR II · FRONTIER OS</Eyebrow>
@@ -2077,7 +2084,7 @@ function QualifyPage() {
         { value: "founder-scaling", label: "Founder scaling a business past $500K revenue" },
         { value: "smb-operator", label: "SMB operator with a team and real operational complexity" },
         { value: "enterprise", label: "Enterprise or institutional decision-maker" },
-        { value: "early-stage", label: "Early-stage, pre-revenue, or exploring" },
+        { value: "early-stage", label: "Early-stage founder or pre-revenue, ready to invest in AI" },
       ],
     },
     {
@@ -2104,8 +2111,8 @@ function QualifyPage() {
       id: 3,
       label: "What is your deployment budget for an AI operating system?",
       options: [
-        { value: "under-3k", label: "Under $3,000" },
-        { value: "3k-10k", label: "$3,000 to $10,000" },
+        { value: "under-2500", label: "Under $2,500" },
+        { value: "2500-10k", label: "$2,500 to $10,000" },
         { value: "10k-50k", label: "$10,000 to $50,000" },
         { value: "50k-plus", label: "$50,000 and above" },
       ],
@@ -2123,9 +2130,9 @@ function QualifyPage() {
   ];
 
   function isDisqualified(ans: Record<number, string>): boolean {
-    // Disqualify: early-stage OR budget under $3K
-    if (ans[0] === "early-stage") return true;
-    if (ans[3] === "under-3k") return true;
+    // Disqualify ONLY if budget is under $2,500 - we cannot help at that level
+    // Early-stage founders with $2,500+ budget CAN book a call
+    if (ans[3] === "under-2500") return true;
     return false;
   }
 
