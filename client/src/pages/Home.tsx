@@ -1293,7 +1293,7 @@ function DoneForYouPage() {
         {/* PAIN-POINT HOOK BANNER */}
         <section className="pain-hook-banner">
           <p className="pain-hook-text">
-            If your business does more than <strong>R3 million a year</strong> and you have already spent money on AI that did not work, <em>this is for you.</em>
+            If your business does more than <strong>3 million a year</strong> and you have already spent money on AI that did not work, <em>this is for you.</em>
           </p>
         </section>
 
