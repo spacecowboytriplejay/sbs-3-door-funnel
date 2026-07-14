@@ -1305,10 +1305,7 @@ function DoneForYouPage() {
               <em>beneath the next cycle.</em>
             </h1>
             <p className="subhead">
-              Door II is the full-stack path. Selfbuiltsystems designs, deploys and capitalises the architecture
-              across intelligence, bits, electrons, atoms, capital, and the institutions that hold
-              them together. We work with the firms in the logo marquee below. Access is by
-              application. Not every team qualifies.
+              Most businesses are losing revenue right now because their AI tools do not talk to each other, their distribution is not compounding, and their personal brand is not converting. We fix all three. Selfbuiltsystems builds the closed-loop systems that turn your AI stack, your distribution infrastructure, and your personal brand into one engine that grows your business. Access is by application.
             </p>
             <Link
               className="primary-action"
@@ -1323,10 +1320,7 @@ function DoneForYouPage() {
 
         <section className="category-frame category-frame--sharp">
           <p>
-            Most firms operate inside the system. Selfbuiltsystems works with industry leaders to design, deploy,
-            operate, and capitalise the systems other firms operate inside. The firms that stop
-            hiring humans and start deploying systems are the ones that own the next decade. The
-            firms that wait are the ones that rent from them.
+            The businesses growing fastest right now are not the ones with the best product. They are the ones with the best system. AI that feeds your distribution. Distribution that builds your brand. A brand that closes without a sales team. That is the loop. We engineer it.
           </p>
         </section>
 
