@@ -2183,11 +2183,40 @@ function QualifyPage() {
 /* ─────────────────────────────────────────────
    BOOK-A-CALL FUNNEL: NOT A FIT PAGE
 ───────────────────────────────────────────── */
+const NOT_A_FIT_VIDEOS = [
+  {
+    id: "tndupVgHhC0",
+    title: "AI and Distribution Growth Infrastructure",
+    description: "How Selfbuiltsystems builds the AI and distribution infrastructure that grows businesses. Start here.",
+    label: "WATCH FIRST",
+  },
+  {
+    id: "1PojhbhDv84",
+    title: "Personal Branding and Distribution at Scale",
+    description: "How we helped build and scale the GIIFTD Academy to $40K MRR. Timon now has 12 million followers across platforms. This is what personal brand as distribution infrastructure looks like.",
+    label: "WATCH SECOND",
+  },
+  {
+    id: "-VAZNvF_Zq4",
+    title: "How Two Kids from a Third-World Country Cracked the Code",
+    description: "The origin story. How the system was built from nothing and what it means for operators who are earlier in the cycle.",
+    label: "WATCH THIRD",
+  },
+  {
+    id: "5KZVr-4BP4w",
+    title: "The Art of Selling with Leading 7-Figure Ecom Agency Owners",
+    description: "Sales systems, distribution, and what separates the operators who scale from the ones who stay stuck.",
+    label: "WATCH FOURTH",
+  },
+];
+
 function NotAFitPage() {
   usePageMeta(
     "Selfbuiltsystems | Not the Right Fit Right Now",
-    "Based on your answers, Frontier OS from Selfbuiltsystems is not the right next step right now. Here is how to prepare and what to do next.",
+    "Based on your answers, Frontier OS is not the right next step right now. Here is what to do instead to get ready.",
   );
+
+  const [playingId, setPlayingId] = useState<string | null>(null);
 
   return (
     <div className="page-shell">
@@ -2200,48 +2229,96 @@ function NotAFitPage() {
             Based on your answers, Frontier OS is not the right next step for where you are today. That is not a problem. It means you are earlier in the cycle. The best operators we have worked with started exactly where you are.
           </p>
           <p className="not-a-fit-prose">
-            When you are ready to invest $5,000 or more in a real operating system and you have a business generating revenue that needs to compound, come back. The door will still be here.
+            When you are ready to invest in a real operating system and your business is generating revenue that needs to compound, come back. The door will still be here.
           </p>
-          <div className="not-a-fit-actions">
-            <div className="not-a-fit-action-card">
-              <Eyebrow>STEP 1</Eyebrow>
-              <h3>Join the Frontier Syndicate</h3>
-              <p>The free signal tier gives you weekly frontier intelligence, operator frameworks, and the thinking that informs everything Selfbuiltsystems builds. Stay close to the room while you build toward it.</p>
-              <a
-                className="primary-action"
-                href="https://t.me/frontiersignal"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => track("Subscribe", { plan: "signal_free_disqualified" })}
-              >
-                Join the Free Signal
-              </a>
-            </div>
-            <div className="not-a-fit-action-card">
-              <Eyebrow>STEP 2</Eyebrow>
-              <h3>Start with Door I</h3>
-              <p>The Master Prompt Vault and the 30-Day Self-Build Playbook are the operating language of the room, compressed into assets you can deploy today. The $17 vault is the first key.</p>
-              <Link
-                className="primary-action"
-                href="/sbs-io"
-                onClick={() => track("PageView", { page: "door1_from_disqualified" })}
-              >
-                Explore Door I
-              </Link>
-            </div>
-            <div className="not-a-fit-action-card">
-              <Eyebrow>STEP 3</Eyebrow>
-              <h3>Watch the Frontier OS Brief</h3>
-              <p>The full Frontier OS brief walks through the intelligence layer, the deployment architecture, and what it looks like to install a real operating system. Watch it when you are ready to move.</p>
-              <Link
-                className="primary-action"
-                href="/sbs-ai"
-                onClick={() => track("PageView", { page: "door2_from_disqualified" })}
-              >
-                Watch the Brief
-              </Link>
+
+          {/* STEP 1: JOIN TELEGRAM */}
+          <div className="not-a-fit-step-block">
+            <Eyebrow>STEP 1 · DO THIS NOW</Eyebrow>
+            <h2>Join the Frontier community on Telegram.</h2>
+            <p className="not-a-fit-prose">This is where the signal lives. Operators, builders, and allocators working across AI, distribution, and personal brand. Free access. No spam. Just the thinking that informs everything Selfbuiltsystems builds.</p>
+            <a
+              className="primary-action not-a-fit-cta"
+              href="https://t.me/+eiV7rWbkxb44MzRk"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track("Subscribe", { plan: "telegram_disqualified" })}
+            >
+              Join the Telegram Group
+            </a>
+          </div>
+
+          {/* STEP 2: WATCH THE VIDEOS */}
+          <div className="not-a-fit-step-block">
+            <Eyebrow>STEP 2 · WATCH IN ORDER</Eyebrow>
+            <h2>Four videos that will change how you think about building.</h2>
+            <p className="not-a-fit-prose">Watch these in order. By the end you will understand exactly what the system is, how it works, and why it is the highest-leverage thing you can build right now.</p>
+
+            <div className="not-a-fit-video-grid">
+              {NOT_A_FIT_VIDEOS.map((video) => (
+                <div key={video.id} className="not-a-fit-video-card">
+                  <div className="not-a-fit-video-frame">
+                    {playingId === video.id ? (
+                      <iframe
+                        src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1`}
+                        title={video.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="vsl-iframe"
+                      />
+                    ) : (
+                      <>
+                        <img
+                          src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                          alt={video.title}
+                          className="vsl-thumbnail"
+                        />
+                        <div className="vsl-overlay" />
+                        <button
+                          className="play-button"
+                          onClick={() => {
+                            setPlayingId(video.id);
+                            track("ViewContent", { content_name: video.title });
+                          }}
+                          aria-label={`Play ${video.title}`}
+                        >
+                          &#9654;
+                        </button>
+                        <a
+                          href={`https://youtu.be/${video.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="vsl-watch-link"
+                        >
+                          Watch on YouTube
+                        </a>
+                      </>
+                    )}
+                  </div>
+                  <div className="not-a-fit-video-meta">
+                    <p className="not-a-fit-video-label">{video.label}</p>
+                    <h3 className="not-a-fit-video-title">{video.title}</h3>
+                    <p className="not-a-fit-video-desc">{video.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* STEP 3: DOOR I */}
+          <div className="not-a-fit-step-block">
+            <Eyebrow>STEP 3 · WHEN YOU ARE READY</Eyebrow>
+            <h2>Start with the self-build assets.</h2>
+            <p className="not-a-fit-prose">The Master Prompt Vault is the operating language of the room compressed into a $17 asset. It is the first key into the system.</p>
+            <Link
+              className="primary-action not-a-fit-cta"
+              href="/sbs-io"
+              onClick={() => track("PageView", { page: "door1_from_disqualified" })}
+            >
+              Explore Door I
+            </Link>
+          </div>
+
         </div>
       </main>
       <Footer />
